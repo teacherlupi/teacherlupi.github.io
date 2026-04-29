@@ -1,26 +1,161 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Em produção | teacherlupi.com</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teacher Lupi | Em desenvolvimento</title>
+
+  <style>
+    :root {
+      --bg: #f4efe6;
+      --primary: #7a2e2e;
+      --dark: #1a1a1a;
+      --card: #ffffff;
+      --border: #222;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: monospace;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--dark);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      border-bottom: 3px solid var(--border);
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #e9e1d3;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: bold;
+    }
+
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding: 40px;
+      align-items: center;
+    }
+
+    .hero h2 {
+      font-size: 3rem;
+      color: var(--primary);
+    }
+
+    .hero p {
+      margin: 20px 0;
+      line-height: 1.5;
+    }
+
+    .badge {
+      display: inline-block;
+      border: 2px solid var(--border);
+      padding: 6px 10px;
+      margin-bottom: 20px;
+      font-size: 0.8rem;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      border: 2px solid var(--border);
+      text-decoration: none;
+      margin-right: 10px;
+      font-weight: bold;
+    }
+
+    .btn.primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .card {
+      border: 3px solid var(--border);
+      padding: 20px;
+      background: var(--card);
+      text-align: center;
+    }
+
+    footer {
+      border-top: 3px solid var(--border);
+      padding: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      background: #e9e1d3;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
   <header>
-    <h1>teacherlupi.com</h1>
+    <h1>Teacher Lupi</h1>
+    <nav>
+      <a href="#">Sobre</a>
+      <a href="#">Metodologias</a>
+      <a href="#">Planos</a>
+    </nav>
   </header>
 
   <main>
-    <section>
-      <h2>🚧 Em produção</h2>
-      <p>Este site ainda está em desenvolvimento.</p>
-      <p>Em breve, novos conteúdos estarão disponíveis.</p>
+    <section class="hero">
+      <span class="badge">AULAS PARTICULARES DE INGLÊS</span>
+      <h2>Em desenvolvimento</h2>
+      <p>
+        O site oficial está sendo construído com foco em desempenho,
+        clareza pedagógica e experiência do aluno.
+      </p>
+      <p>
+        Em breve, você poderá acessar metodologias, planos e iniciar sua jornada no inglês.
+      </p>
+
+      <div class="buttons">
+        <a href="#" class="btn primary">Falar no WhatsApp</a>
+        <a href="#" class="btn">Ver metodologias</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>🚧 Em construção</h3>
+      <p>Conteúdo sendo preparado.</p>
+      <p>Estrutura sendo otimizada.</p>
+      <p>Experiência sendo refinada.</p>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2026 teacherlupi.com</p>
+    <p>&copy; 2026 teacherlupi.com — Todos os direitos reservados</p>
   </footer>
 
 </body>

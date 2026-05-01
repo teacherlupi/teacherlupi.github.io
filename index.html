@@ -1,75 +1,258 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Teacher Lupi | Em desenvolvimento</title>
-  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Teacher Lupi | Site em Desenvolvimento</title>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=VT323&display=swap"
+    rel="stylesheet">
 
   <style>
+    /* ==========================================================================
+       1. VARIÁVEIS GLOBAIS E TOKENS DE DESIGN (USER PATTERN)
+       ========================================================================== */
     :root {
-      /* Paleta de Cores baseada nos prints */
       --bg-base: #f4efe6;
       --bg-pattern: #eadecb;
-      --primary: #8b2828; /* Vermelho escuro */
-      --primary-hover: #701f1f;
+      --primary: #8b2828;
+      --primary-hover: #b03535;
+      --highlight: #ffcc00;
+      --highlight-dark: #d4aa00;
       --dark: #1a1a1a;
+      --dark-hover: #333333;
       --card-bg: #ffffff;
       --border: #1a1a1a;
-      
-      /* Espaçamentos e Sombras */
+      --overlay: rgba(26, 26, 26, 0.85);
+
       --border-width: 3px;
-      --shadow-offset: 6px;
+      --border-thick: 5px;
+      --shadow-offset: 8px;
       --shadow-offset-sm: 4px;
+      --shadow-offset-lg: 14px;
+
+      --trans-fast: 0.15s ease;
+      --trans-smooth: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
     body {
-      /* Fundo com textura quadriculada sutil */
       background-color: var(--bg-base);
-      background-image: 
+      background-image:
         linear-gradient(45deg, var(--bg-pattern) 25%, transparent 25%, transparent 75%, var(--bg-pattern) 75%, var(--bg-pattern)),
         linear-gradient(45deg, var(--bg-pattern) 25%, transparent 25%, transparent 75%, var(--bg-pattern) 75%, var(--bg-pattern));
       background-size: 4px 4px;
       background-position: 0 0, 2px 2px;
-      
       color: var(--dark);
       font-family: 'Space Mono', monospace;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    /* Tipografia de Títulos */
-    h1, h2, h3, .pixel-font {
+    /* ==========================================================================
+       2. TIPOGRAFIA E ANIMAÇÕES
+       ========================================================================== */
+    h1,
+    h2,
+    h3,
+    .pixel-font {
       font-family: 'VT323', monospace;
       font-weight: normal;
       line-height: 1.1;
       text-transform: uppercase;
     }
 
-    /* =========================
-       HEADER & NAV
-       ========================= */
+    .typing-cursor {
+      display: inline-block;
+      color: var(--primary);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float-subtle {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-10px) rotate(1.5deg);
+      }
+    }
+
+    .interactive-title {
+      display: inline-block;
+      transition: var(--trans-smooth);
+    }
+
+    .interactive-title:hover {
+      transform: scale(1.02) rotate(-1deg);
+      text-shadow: 6px 6px 0px rgba(139, 40, 40, 0.2);
+    }
+
+    /* ==========================================================================
+       3. BACKGROUND FLUTUANTE (TAPES & ICONS)
+       ========================================================================== */
+    .floating-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bg-tape {
+      position: absolute;
+      width: 150vw;
+      left: -25vw;
+      opacity: 0.06;
+      pointer-events: none;
+    }
+
+    .bg-tape.tape-1 {
+      top: 20%;
+      transform: rotate(-10deg);
+    }
+
+    .bg-tape.tape-2 {
+      top: 65%;
+      transform: rotate(15deg);
+    }
+
+    .bg-tape.tape-3 {
+      top: 90%;
+      transform: rotate(-5deg);
+    }
+
+    .float-icon {
+      position: absolute;
+      font-size: 3rem;
+      opacity: 0.15;
+      animation: float-random 6s ease-in-out infinite alternate;
+      pointer-events: auto;
+      cursor: crosshair;
+      transition: var(--trans-smooth);
+    }
+
+    .float-icon:hover {
+      opacity: 0.8;
+      transform: scale(1.5) rotate(20deg) !important;
+      animation-play-state: paused;
+    }
+
+    @keyframes float-random {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      100% {
+        transform: translateY(-40px) rotate(15deg);
+      }
+    }
+
+    /* ==========================================================================
+       4. CABEÇALHO
+       ========================================================================== */
     header {
-      background-color: var(--bg-base);
-      border-bottom: var(--border-width) solid var(--border);
-      padding: 16px 5%;
+      background-color: rgba(244, 239, 230, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: var(--border-width) solid transparent;
+      padding: 10px 0;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      animation: slide-down 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    header.scrolled {
+      background-color: rgba(244, 239, 230, 0.9);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom-color: var(--primary);
+      box-shadow: 0 10px 30px rgba(139, 40, 40, 0.1);
+      padding: 5px 0;
+    }
+
+    header.scrolled .brand {
+      color: var(--primary);
+    }
+
+    header.scrolled nav a {
+      color: var(--primary);
+    }
+
+    .header-container {
+      width: 100%;
+      max-width: 1350px;
+      padding: 0 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+    }
+
+    @keyframes slide-down {
+      from {
+        transform: translateY(-100%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
     }
 
     .brand {
@@ -77,25 +260,27 @@
       align-items: center;
       gap: 12px;
       font-family: 'VT323', monospace;
-      font-size: 2rem;
+      font-size: 2.2rem;
       text-decoration: none;
       color: var(--dark);
+      transition: var(--trans-smooth);
     }
 
     .brand-icon {
-      width: 40px;
-      height: 40px;
+      width: 45px;
+      height: 45px;
       background-color: var(--card-bg);
-      border: 2px solid var(--border);
+      border: var(--border-width) solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
+      box-shadow: 2px 2px 0 var(--border);
     }
 
     nav {
       display: flex;
-      gap: 32px;
+      gap: 30px;
       align-items: center;
     }
 
@@ -103,45 +288,61 @@
       text-decoration: none;
       color: var(--dark);
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 1rem;
       text-transform: uppercase;
-      transition: color 0.2s;
+      transition: var(--trans-fast);
+      padding: 5px 10px;
     }
 
     nav a:hover {
-      color: var(--primary);
+      background-color: var(--dark);
+      color: var(--bg-base);
+      transform: translateY(-4px);
+      box-shadow: 4px 4px 0 var(--primary);
     }
 
-    /* =========================
-       COMPONENTES BRUTALISTAS
-       ========================= */
+    /* ==========================================================================
+       5. COMPONENTES BRUTALISTAS
+       ========================================================================== */
     .brutal-box {
-      border: var(--border-width) solid var(--border);
+      border: var(--border-thick) solid var(--border);
       background: var(--card-bg);
       box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border);
+      transition: var(--trans-smooth);
+    }
+
+    .brutal-box:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: var(--shadow-offset-lg) var(--shadow-offset-lg) 0 var(--border);
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 12px 24px;
+      padding: 12px 28px;
       border: var(--border-width) solid var(--border);
       background: var(--card-bg);
       color: var(--dark);
       text-decoration: none;
       font-family: 'VT323', monospace;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       text-transform: uppercase;
       box-shadow: var(--shadow-offset-sm) var(--shadow-offset-sm) 0 var(--border);
       cursor: pointer;
-      transition: transform 0.1s, box-shadow 0.1s;
+      transition: all 0.1s ease-in-out;
     }
 
-    /* Efeito de clique no botão (Fliperama) */
+    .btn:hover {
+      animation: button-shake 0.4s ease-in-out;
+      background-color: #f0f0f0;
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--border);
+    }
+
     .btn:active {
-      transform: translate(var(--shadow-offset-sm), var(--shadow-offset-sm));
-      box-shadow: 0 0 0 var(--border);
+      transform: translate(var(--shadow-offset-sm), var(--shadow-offset-sm)) !important;
+      box-shadow: 0 0 0 var(--border) !important;
     }
 
     .btn-primary {
@@ -151,47 +352,120 @@
 
     .btn-primary:hover {
       background-color: var(--primary-hover);
+      color: #fff;
+    }
+
+    @keyframes button-shake {
+      0% {
+        transform: translate(-2px, -2px) rotate(0deg);
+      }
+
+      25% {
+        transform: translate(-2px, -2px) rotate(-2deg);
+      }
+
+      50% {
+        transform: translate(-2px, -2px) rotate(2deg);
+      }
+
+      75% {
+        transform: translate(-2px, -2px) rotate(-1deg);
+      }
+
+      100% {
+        transform: translate(-2px, -2px) rotate(0deg);
+      }
     }
 
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: #c3d4d4; /* Azul acinzentado do print */
-      border: 2px solid var(--border);
-      padding: 6px 12px;
-      font-size: 0.8rem;
+      gap: 10px;
+      background: #c3d4d4;
+      border: var(--border-width) solid var(--border);
+      padding: 8px 16px;
+      font-size: 0.9rem;
       font-weight: 700;
       text-transform: uppercase;
-      margin-bottom: 24px;
+      margin-bottom: 15px;
+      width: fit-content;
     }
 
-    /* =========================
-       MAIN & LAYOUT
-       ========================= */
+    /* ==========================================================================
+       6. CONSTRUCTION TAPE
+       ========================================================================== */
+    .construction-tape-wrapper {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      transform: rotate(-1.5deg) scale(1.05);
+      margin-top: 30px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .construction-tape {
+      background-color: var(--highlight);
+      color: var(--border);
+      border-top: 4px solid var(--border);
+      border-bottom: 4px solid var(--border);
+      padding: 12px 0;
+      font-size: 1.8rem;
+      font-family: 'Space Mono', monospace;
+      font-weight: 900;
+      white-space: nowrap;
+      overflow: hidden;
+      display: flex;
+      box-shadow: 0 8px 0 rgba(0, 0, 0, 0.8);
+    }
+
+    .tape-text {
+      display: inline-block;
+      padding-right: 50px;
+      animation: scroll-left 15s linear infinite;
+    }
+
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* ==========================================================================
+       7. MAIN LAYOUT (ELEVATED)
+       ========================================================================== */
     main {
       flex: 1;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      padding: 60px 5%;
+      gap: 40px;
+      padding: 40px 20px;
       align-items: center;
-      max-width: 1400px;
+      max-width: 1350px;
       margin: 0 auto;
       width: 100%;
+      position: relative;
+      z-index: 10;
+      overflow: visible;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
     }
 
     .hero-content h2 {
-      font-size: 4.5rem;
+      font-size: clamp(3rem, 10vw, 5.5rem);
       color: var(--primary);
-      margin-bottom: 24px;
-      text-shadow: 4px 4px 0px rgba(0,0,0,0.1);
-    }
-
-    .hero-content p {
-      font-size: 1.1rem;
       margin-bottom: 20px;
-      max-width: 90%;
+      text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+      line-height: 0.9;
     }
 
     .hero-actions {
@@ -200,101 +474,253 @@
       margin-top: 40px;
     }
 
-    /* Card de Desenvolvimento */
-    .dev-card {
-      padding: 40px;
+    /* Mascot Integration */
+    .hero-mascot {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 24px;
-      background-color: var(--bg-base); /* Fundo bege por cima do xadrez */
-    }
-
-    .dev-card-inner {
-      width: 100%;
-      background: var(--card-bg);
-      border: 2px dashed var(--border);
-      padding: 40px 20px;
-    }
-
-    .dev-icon {
-      font-size: 4rem;
-      margin-bottom: 16px;
-      animation: float 3s ease-in-out infinite;
-    }
-
-    .dev-list {
-      list-style: none;
-      text-align: left;
-      margin-top: 20px;
-    }
-
-    .dev-list li {
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .dev-list li::before {
-      content: '✓';
-      display: inline-flex;
-      align-items: center;
       justify-content: center;
-      width: 24px;
-      height: 24px;
+      align-items: center;
+    }
+
+    .mascot-container {
+      position: relative;
+      background: var(--card-bg);
+      padding: 20px;
+      border: var(--border-thick) solid var(--border);
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border);
+      transition: var(--trans-smooth);
+      animation: float-subtle 4s ease-in-out infinite;
+    }
+
+    .mascot-container:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: var(--shadow-offset-lg) var(--shadow-offset-lg) 0 var(--border);
+    }
+
+    .mascot-img {
+      width: 100%;
+      max-width: 450px;
+      height: auto;
+      display: block;
+      image-rendering: -webkit-optimize-contrast;
+    }
+
+    .lvl-up {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
       background: var(--primary);
       color: white;
-      border: 2px solid var(--border);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.8rem;
+      padding: 8px 16px;
+      font-size: 1.5rem;
+      font-weight: 800;
+      border: var(--border-width) solid var(--border);
+      box-shadow: 4px 4px 0 var(--border);
     }
 
-    /* =========================
-       FOOTER
-       ========================= */
+    /* Bento Grid */
+    .bento-section {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 40px;
+      margin-bottom: 60px;
+    }
+
+    .bento-card {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .bento-card h3 {
+      font-size: 1.8rem;
+      color: var(--primary);
+    }
+
+    .bento-icon {
+      font-size: 2.5rem;
+    }
+
+    /* ==========================================================================
+       8. MODAL
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: var(--overlay);
+      backdrop-filter: blur(5px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-box {
+      background-color: var(--bg-base);
+      border: var(--border-thick) solid var(--border);
+      padding: 40px;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 15px 15px 0 var(--primary);
+      transform: translateY(50px) scale(0.9);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+    }
+
+    .modal-overlay.active .modal-box {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 50px;
+      height: 50px;
+      background-color: var(--primary);
+      color: white;
+      border: var(--border-width) solid var(--border);
+      font-size: 2rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 var(--border);
+      transition: var(--trans-fast);
+    }
+
+    .modal-close-btn:hover {
+      transform: scale(1.1) rotate(90deg);
+    }
+
+    /* ==========================================================================
+       9. FOOTER
+       ========================================================================== */
     footer {
       background-color: var(--dark);
       color: #fff;
-      padding: 24px 5%;
+      padding: 40px 0;
+      display: flex;
+      justify-content: center;
+      border-top: var(--border-width) solid var(--border);
+      position: relative;
+      z-index: 10;
+    }
+
+    .footer-container {
+      width: 100%;
+      max-width: 1350px;
+      padding: 0 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top: var(--border-width) solid var(--border);
     }
 
-    footer p {
-      font-size: 0.8rem;
+    @media (max-width: 1024px) {
+      .footer-container {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
     }
 
-    /* Animação simples para o ícone */
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0px); }
-    }
-
-    /* =========================
-       RESPONSIVIDADE
-       ========================= */
-    @media (max-width: 992px) {
+    @media (max-width: 1024px) {
       main {
         grid-template-columns: 1fr;
         gap: 40px;
-        padding: 40px 5%;
+        text-align: center;
       }
-      
-      .hero-content h2 {
-        font-size: 3.5rem;
+
+      .hero-content {
+        order: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
-      
+
+      .hero-mascot {
+        order: 1;
+      }
+
+      .hero-actions {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .bento-section {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .bento-section {
+        grid-template-columns: 1fr;
+      }
+
       .hero-actions {
         flex-direction: column;
+        width: 100%;
+        max-width: 400px;
       }
-      
-      nav {
-        display: none; /* Esconde nav em telas menores por enquanto */
+
+      .construction-tape {
+        font-size: 1.2rem;
+        padding: 8px 0;
+      }
+
+      .mascot-img {
+        max-width: 300px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content h2 {
+        font-size: 2.8rem;
+      }
+
+      .badge {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+      }
+
+      .btn {
+        width: 100%;
+        font-size: 1.3rem;
+      }
+
+      .modal-box {
+        padding: 20px;
       }
     }
   </style>
@@ -302,63 +728,171 @@
 
 <body>
 
+  <div class="floating-bg" style="opacity: 0.8;">
+    <div class="bg-tape tape-1">
+      <div class="construction-tape">
+        <div class="tape-text">🚧 EM DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧 EM
+          DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧</div>
+        <div class="tape-text">🚧 EM DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧 EM
+          DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧</div>
+      </div>
+    </div>
+    <div class="bg-tape tape-2">
+      <div class="construction-tape">
+        <div class="tape-text">🚧 EM DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧 EM
+          DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧</div>
+        <div class="tape-text">🚧 EM DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧 EM
+          DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧</div>
+      </div>
+    </div>
+    <div class="bg-tape tape-3">
+      <div class="construction-tape">
+        <div class="tape-text">🚧 EM DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧 EM
+          DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧</div>
+        <div class="tape-text">🚧 EM DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧 EM
+          DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧</div>
+      </div>
+    </div>
+    <div class="float-icon" style="top: 15%; left: 5%;">🔧</div>
+    <div class="float-icon" style="top: 75%; left: 8%;">⚙️</div>
+    <div class="float-icon" style="top: 25%; right: 10%;">💻</div>
+    <div class="float-icon" style="top: 65%; right: 5%;">🚧</div>
+    <div class="float-icon" style="top: 85%; left: 50%;">🐺</div>
+  </div>
+
   <header>
-    <a href="#" class="brand">
-      <div class="brand-icon">🐺</div>
-      Teacher Lupi
-    </a>
-    <nav>
-      <a href="#">Sobre</a>
-      <a href="#">Metodologias</a>
-      <a href="#">Planos</a>
-    </nav>
-    <a href="#" class="btn btn-primary" style="font-size: 1.2rem; padding: 8px 16px;">💬 Começar Agora</a>
+    <div class="header-container">
+      <a href="#" class="brand dev-link">
+        <div class="brand-icon">
+          <img src="mascot.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        Teacher Lupi
+      </a>
+      <nav>
+        <a href="#sobre" class="dev-link">Sobre</a>
+        <a href="#metodologias" class="dev-link">Metodologias</a>
+        <a href="#planos" class="dev-link">Planos</a>
+      </nav>
+      <a href="#comecar" class="btn btn-primary dev-link" style="font-size: 1.2rem; padding: 8px 16px;">💬 Começar
+        Agora</a>
+    </div>
   </header>
 
+  <div class="construction-tape-wrapper" style="margin-top: 100px;">
+    <div class="construction-tape">
+      <div class="tape-text">🚧 EM DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧 EM
+        DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧</div>
+      <div class="tape-text">🚧 EM DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧 EM
+        DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧</div>
+    </div>
+  </div>
+
   <main>
-    <section class="hero-content">
-      <div class="badge">
+    <section class="hero-content" style="animation: fade-in-up 0.8s ease-out forwards;">
+      <div class="badge" style="margin-bottom: 10px;">
         <span>🎮</span> Aulas Particulares de Inglês
       </div>
-      
-      <h2>Teacher<br>Lupi_</h2>
-      
-      <p>
-        Aprenda inglês com metodologias internacionais, no seu ritmo e com resultados mensuráveis. 
+
+      <h2 class="interactive-title" style="margin-top: 0;">Teacher<br>Lupi<span class="typing-cursor">_</span></h2>
+
+      <p style="max-width: 550px;">
+        Aprenda inglês com metodologias internacionais, no seu ritmo e com resultados mensuráveis.
       </p>
-      <p>
-        <strong>Status:</strong> O sistema está passando por um upgrade de nível. A nova plataforma oficial está sendo forjada com foco em desempenho e clareza pedagógica.
+
+      <p style="max-width: 550px;">
+        <strong>Status do Sistema:</strong> Estamos forjando uma nova plataforma oficial com foco absoluto em desempenho
+        e clareza pedagógica. A experiência vai subir de level!
       </p>
 
       <div class="hero-actions">
-        <a href="#" class="btn btn-primary">Falar no WhatsApp</a>
-        <a href="#" class="btn">Avisar-me no Lançamento</a>
+        <a href="#whatsapp" class="btn btn-primary dev-link">Falar no WhatsApp</a>
+        <a href="#avisar" class="btn dev-link">Avisar-me no Lançamento</a>
       </div>
     </section>
 
-    <section class="dev-card brutal-box">
-      <div class="dev-card-inner">
-        <div class="dev-icon">🚧</div>
-        <h3 class="pixel-font" style="font-size: 2.5rem;">Em Construção</h3>
-        <p>A experiência do aluno está sendo refinada. O que vem por aí:</p>
-        
-        <ul class="dev-list">
-          <li>Placement Test dinâmico</li>
-          <li>Dashboards de evolução (Gramática e Fluência)</li>
-          <li>Catálogo de 10 Metodologias Exclusivas</li>
-        </ul>
+    <section class="hero-mascot">
+      <div class="mascot-container">
+        <img src="mascot.jpg" alt="Mascote Teacher Lupi" class="mascot-img">
+        <div class="lvl-up pixel-font">☆ LVL UP</div>
       </div>
     </section>
+
+    <div class="bento-section">
+      <div class="bento-card brutal-box" style="animation: fade-in-up 0.6s ease-out forwards 0.2s; opacity: 0;">
+        <span class="bento-icon">❤️</span>
+        <h3>Aulas personalizadas</h3>
+        <p>Conteúdo focado nos seus objetivos reais, sem enrolação.</p>
+      </div>
+      <div class="bento-card brutal-box" style="animation: fade-in-up 0.6s ease-out forwards 0.4s; opacity: 0;">
+        <span class="bento-icon">⭐</span>
+        <h3>10 Metodologias</h3>
+        <p>Abordagens variadas que se adaptam ao seu estilo.</p>
+      </div>
+      <div class="bento-card brutal-box" style="animation: fade-in-up 0.6s ease-out forwards 0.6s; opacity: 0;">
+        <span class="bento-icon">📖</span>
+        <h3>Todos os níveis</h3>
+        <p>Do iniciante ao avançado com materiais exclusivos.</p>
+      </div>
+    </div>
   </main>
 
   <footer>
-    <div class="brand" style="color: white; font-size: 1.5rem;">
-      <div class="brand-icon" style="background: transparent; border-color: white;">🐺</div>
-      Teacher Lupi
+    <div class="footer-container">
+      <div class="brand dev-link" style="color: white; font-size: 1.5rem; cursor: pointer;">
+        <div class="brand-icon" style="background: transparent; border-color: white;">
+          <img src="mascot.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        Teacher Lupi
+      </div>
+      <p>English classes • Feitas pra você evoluir de verdade</p>
+      <p>© 2026 • Todos os direitos reservados.</p>
     </div>
-    <p>English classes • Feitas pra você evoluir de verdade</p>
-    <p>&copy; 2026 • Todos os direitos reservados.</p>
   </footer>
 
+  <div class="modal-overlay" id="devModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" id="closeModal">X</button>
+      <div class="modal-icon">🛠️</div>
+      <h3 class="modal-title pixel-font">Área Restrita</h3>
+      <p class="modal-text">
+        Site em desenvolvimento...<br><br>
+        Em breve, você poderá ver uma nova página por aqui!
+      </p>
+      <button class="btn btn-primary" id="btnOkModal" style="width: 100%;">Entendido!</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const modal = document.getElementById('devModal');
+      const closeModalBtns = [document.getElementById('closeModal'), document.getElementById('btnOkModal')];
+      const devLinks = document.querySelectorAll('a, .dev-link');
+
+      const openModal = (e) => {
+        if (e.currentTarget.getAttribute('href')?.startsWith('#') || e.currentTarget.classList.contains('dev-link')) {
+          e.preventDefault();
+          modal.classList.add('active');
+        }
+      };
+
+      const closeModal = () => modal.classList.remove('active');
+
+      devLinks.forEach(link => link.addEventListener('click', openModal));
+      closeModalBtns.forEach(btn => btn.addEventListener('click', closeModal));
+      modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+
+      // Header Scroll Effect
+      const header = document.querySelector('header');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+    });
+  </script>
 </body>
+
 </html>

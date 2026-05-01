@@ -723,6 +723,105 @@
         padding: 20px;
       }
     }
+
+    /* ==========================================================================
+       10. SEÇÃO SOBRE (NOVA)
+       ========================================================================== */
+    .about-section {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin: 120px 0;
+      align-items: start;
+      padding: 60px 40px;
+      background: var(--card-bg);
+      border: var(--border-thick) solid var(--border);
+      box-shadow: 12px 12px 0 var(--bg-pattern);
+      position: relative;
+      scroll-margin-top: 100px;
+    }
+
+    .about-section::before {
+      content: "";
+      position: absolute;
+      top: -15px;
+      left: -15px;
+      right: -15px;
+      bottom: -15px;
+      border: 2px solid var(--border);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .section-badge-retro {
+      color: var(--primary);
+      font-family: 'VT323', monospace;
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .about-left h2 {
+      font-size: clamp(3rem, 6vw, 4.5rem);
+      color: var(--dark);
+      line-height: 1;
+      text-transform: uppercase;
+      font-family: 'VT323', monospace;
+    }
+
+    .about-right {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .about-right p {
+      font-size: 1.2rem;
+      line-height: 1.5;
+    }
+
+    .checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      animation: fade-in-up 0.6s ease-out forwards;
+      opacity: 0;
+    }
+
+    .checklist li:nth-child(1) { animation-delay: 0.2s; }
+    .checklist li:nth-child(2) { animation-delay: 0.4s; }
+    .checklist li:nth-child(3) { animation-delay: 0.6s; }
+
+    .retro-checkbox {
+      width: 45px;
+      height: 45px;
+      min-width: 45px;
+      border: 4px solid var(--border);
+      background: #c3d4d4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+
+    @media (max-width: 1024px) {
+      .about-section {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: left;
+      }
+    }
   </style>
 </head>
 
@@ -817,6 +916,32 @@
       </div>
     </section>
 
+    <!-- NOVA SEÇÃO SOBRE -->
+    <section id="sobre" class="about-section" style="animation: fade-in-up 0.8s ease-out forwards;">
+      <div class="about-left">
+        <span class="section-badge-retro">[ Sobre ]</span>
+        <h2>Inglês sob medida pra você</h2>
+      </div>
+      <div class="about-right">
+        <p>
+          Tudo começa com um Placement Test (Teste de Nivelamento) para identificar seu nível real e suas necessidades.
+          A partir daí, as aulas são construídas combinando as melhores metodologias internacionais, no ritmo do aluno,
+          com relatórios mensais de evolução em gramática, vocabulário e fluência.
+        </p>
+        <ul class="checklist">
+          <li>
+            <div class="retro-checkbox">✓</div> Placement Test inicial gratuito
+          </li>
+          <li>
+            <div class="retro-checkbox">✓</div> Ritmo adaptado ao seu perfil
+          </li>
+          <li>
+            <div class="retro-checkbox">✓</div> Relatórios mensais de evolução
+          </li>
+        </ul>
+      </div>
+    </section>
+
     <div class="bento-section">
       <div class="bento-card brutal-box" style="animation: fade-in-up 0.6s ease-out forwards 0.2s; opacity: 0;">
         <span class="bento-icon">❤️</span>
@@ -869,7 +994,14 @@
       const devLinks = document.querySelectorAll('a, .dev-link');
 
       const openModal = (e) => {
-        if (e.currentTarget.getAttribute('href')?.startsWith('#') || e.currentTarget.classList.contains('dev-link')) {
+        const href = e.currentTarget.getAttribute('href');
+        // Se o link levar a uma seção que existe, permite o scroll. Caso contrário, abre o modal.
+        if (href && href.startsWith('#')) {
+          const target = document.querySelector(href);
+          if (target) return; // Permite o scroll padrão
+        }
+        
+        if (e.currentTarget.classList.contains('dev-link')) {
           e.preventDefault();
           modal.classList.add('active');
         }

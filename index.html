@@ -15,6 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=VT323&display=swap"
     rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
     /* ==========================================================================
@@ -126,15 +127,6 @@
       }
     }
 
-    .interactive-title {
-      display: inline-block;
-      transition: var(--trans-smooth);
-    }
-
-    .interactive-title:hover {
-      transform: scale(1.02) rotate(-1deg);
-      text-shadow: 6px 6px 0px rgba(139, 40, 40, 0.2);
-    }
 
     /* ==========================================================================
        3. BACKGROUND FLUTUANTE (TAPES & ICONS)
@@ -263,7 +255,8 @@
       font-size: 2.2rem;
       text-decoration: none;
       color: var(--dark);
-      transition: var(--trans-smooth);
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      padding: 8px 15px;
     }
 
     .brand-icon {
@@ -276,6 +269,43 @@
       justify-content: center;
       font-size: 1.5rem;
       box-shadow: 2px 2px 0 var(--border);
+      transition: var(--trans-smooth);
+    }
+
+    .brand:hover {
+      background-color: var(--dark);
+      color: var(--bg-base);
+      transform: translateY(-4px);
+      box-shadow: 6px 6px 0 var(--primary);
+    }
+
+    .brand:hover .brand-icon {
+      transform: rotate(-5deg) scale(1.05);
+      border-color: var(--primary);
+      box-shadow: 3px 3px 0 var(--primary);
+    }
+
+    .brand:active {
+      transform: translateY(-1px);
+      box-shadow: 2px 2px 0 var(--primary);
+    }
+
+    @keyframes icon-pop {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.2);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .brand-icon.animate {
+      animation: icon-pop 0.3s ease-out;
     }
 
     nav {
@@ -380,14 +410,16 @@
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       background: #c3d4d4;
-      border: var(--border-width) solid var(--border);
+      border: var(--border-thick) solid var(--border);
       padding: 8px 16px;
-      font-size: 0.9rem;
-      font-weight: 700;
+      font-family: 'VT323', monospace;
+      font-size: 1.5rem;
+      font-weight: bold;
       text-transform: uppercase;
-      margin-bottom: 15px;
+      color: var(--dark);
+      margin-bottom: 30px;
       width: fit-content;
     }
 
@@ -453,19 +485,108 @@
       overflow: visible;
     }
 
+    .hero-container {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+      align-items: center;
+      padding: 60px 0;
+      min-height: 70vh;
+    }
+
     .hero-content {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      gap: 15px;
+      justify-content: center;
     }
 
-    .hero-content h2 {
-      font-size: clamp(3rem, 10vw, 5.5rem);
-      color: var(--primary);
-      margin-bottom: 20px;
-      text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
-      line-height: 0.9;
+    .interactive-title {
+      font-family: 'VT323', monospace;
+      font-size: clamp(4rem, 10vw, 7.5rem);
+      line-height: 0.82;
+      margin: 10px 0 30px 0;
+      color: #8b2828;
+      text-shadow: 5px 5px 0 white;
+      letter-spacing: 2px;
+      display: inline-block;
+      transition: var(--trans-smooth);
+    }
+
+    .interactive-title:hover {
+      transform: scale(1.02) rotate(-1deg);
+      text-shadow: 6px 6px 0px rgba(139, 40, 40, 0.2);
+    }
+
+    .typing-cursor {
+      display: inline-block;
+      animation: blink 1s step-end infinite;
+      margin-left: 5px;
+      color: #8b2828;
+    }
+
+    @keyframes blink {
+
+      from,
+      to {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .hero-mascot-frame {
+      background: white;
+      border: var(--border-thick) solid var(--border);
+      box-shadow: 15px 15px 0 var(--border);
+      padding: 30px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: float-subtle 5s ease-in-out infinite;
+    }
+
+    .hero-mascot-frame img {
+      width: 100%;
+      height: auto;
+      image-rendering: pixelated;
+    }
+
+    .lvl-up-tag {
+      position: absolute;
+      bottom: -15px;
+      right: -15px;
+      background: var(--primary);
+      color: white;
+      padding: 8px 18px;
+      font-family: 'VT323', monospace;
+      font-size: 1.4rem;
+      font-weight: bold;
+      border: var(--border-width) solid var(--border);
+      box-shadow: 4px 4px 0 var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 80px;
+      }
+
+      .hero-content {
+        align-items: center;
+      }
+
+      .hero-mascot-frame {
+        max-width: 450px;
+        margin: 0 auto;
+      }
     }
 
     .hero-actions {
@@ -517,30 +638,56 @@
       box-shadow: 4px 4px 0 var(--border);
     }
 
-    /* Bento Grid */
+    /* ==========================================================================
+       6. SEÇÃO BENTO (MOVIMENTADA PARA O HERO)
+       ========================================================================== */
     .bento-section {
-      grid-column: 1 / -1;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      margin-top: 40px;
-      margin-bottom: 60px;
+      gap: 15px;
+      margin-top: 50px;
+      width: 100%;
+      max-width: 800px;
     }
 
     .bento-card {
-      padding: 30px;
+      background: var(--card-bg);
+      border: var(--border-thick) solid var(--border);
+      padding: 15px 20px;
+      text-align: left;
+      box-shadow: 6px 6px 0 var(--border);
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      align-items: flex-start;
+      gap: 10px;
+      transition: var(--trans-smooth);
+    }
+
+    .bento-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 9px 9px 0 var(--border);
+    }
+
+    .bento-card-icon {
+      width: 24px;
+      height: 24px;
+      color: #8b2828;
     }
 
     .bento-card h3 {
-      font-size: 1.8rem;
-      color: var(--primary);
+      font-family: 'VT323', monospace;
+      color: var(--dark);
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin: 0;
+      line-height: 1;
+      text-transform: uppercase;
     }
 
-    .bento-icon {
-      font-size: 2.5rem;
+    @media (max-width: 768px) {
+      .bento-section {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* ==========================================================================
@@ -661,10 +808,6 @@
         width: 100%;
         justify-content: center;
       }
-
-      .bento-section {
-        grid-template-columns: repeat(2, 1fr);
-      }
     }
 
     @media (max-width: 768px) {
@@ -676,10 +819,6 @@
 
       nav {
         display: none;
-      }
-
-      .bento-section {
-        grid-template-columns: 1fr;
       }
 
       .hero-actions {
@@ -798,9 +937,17 @@
       opacity: 0;
     }
 
-    .checklist li:nth-child(1) { animation-delay: 0.2s; }
-    .checklist li:nth-child(2) { animation-delay: 0.4s; }
-    .checklist li:nth-child(3) { animation-delay: 0.6s; }
+    .checklist li:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+
+    .checklist li:nth-child(2) {
+      animation-delay: 0.4s;
+    }
+
+    .checklist li:nth-child(3) {
+      animation-delay: 0.6s;
+    }
 
     .retro-checkbox {
       width: 45px;
@@ -815,12 +962,342 @@
       box-shadow: 4px 4px 0 var(--border);
     }
 
+    /* ==========================================================================
+       11. SEÇÃO METODOLOGIAS (NOVA)
+       ========================================================================== */
+    .methodology-section {
+      grid-column: 1 / -1;
+      margin: 120px 0;
+      scroll-margin-top: 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .methodology-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .method-card {
+      background: var(--card-bg);
+      border: var(--border-thick) solid var(--border);
+      padding: 25px;
+      box-shadow: 8px 8px 0 var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      transition: var(--trans-smooth);
+    }
+
+    .method-card:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 12px 12px 0 var(--border);
+    }
+
+    .method-cta {
+      margin-top: auto;
+      font-family: 'Space Mono', monospace;
+      font-weight: bold;
+      color: #8b2828;
+      text-decoration: none;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--trans-smooth);
+      padding-top: 10px;
+    }
+
+    .method-cta:hover {
+      gap: 12px;
+      color: var(--primary);
+    }
+
+    .method-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+    }
+
+    .method-icon {
+      width: 55px;
+      height: 55px;
+      min-width: 55px;
+      border: var(--border-width) solid var(--border);
+      background: #c3d4d4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      box-shadow: 3px 3px 0 var(--border);
+    }
+
+    .method-icon i,
+    .method-icon svg {
+      width: 32px;
+      height: 32px;
+      color: var(--dark);
+    }
+
+    .method-number {
+      font-family: 'VT323', monospace;
+      font-size: 1.2rem;
+      color: var(--dark);
+      font-weight: bold;
+    }
+
+    .method-card h3 {
+      font-size: 1.6rem;
+      color: var(--dark);
+      line-height: 1.1;
+      margin-top: 5px;
+    }
+
+    .method-card p {
+      font-size: 1rem;
+      line-height: 1.4;
+      font-family: 'Space Mono', monospace;
+    }
+
+    @media (max-width: 1200px) {
+      .methodology-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 992px) {
+      .methodology-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .methodology-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ==========================================================================
+       12. SEÇÃO PLANOS (NOVA)
+       ========================================================================== */
+    .plans-section {
+      grid-column: 1 / -1;
+      margin: 120px 0;
+      scroll-margin-top: 100px;
+      text-align: center;
+    }
+
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 60px;
+      align-items: flex-end;
+    }
+
+    .plan-card {
+      background: var(--card-bg);
+      border: var(--border-thick) solid var(--border);
+      padding: 40px 30px;
+      box-shadow: 10px 10px 0 var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      text-align: left;
+      position: relative;
+      transition: var(--trans-smooth);
+    }
+
+    .plan-card:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 14px 14px 0 var(--border);
+    }
+
+    .plan-card.highlight {
+      background: var(--dark);
+      color: white;
+      padding: 50px 30px;
+      transform: scale(1.05);
+      z-index: 2;
+      box-shadow: 12px 12px 0 var(--primary);
+    }
+
+    .plan-card.highlight:hover {
+      transform: scale(1.06) translate(-4px, -4px);
+      box-shadow: 16px 16px 0 var(--primary);
+    }
+
+    .plan-card.highlight .plan-price .amount,
+    .plan-card.highlight h3,
+    .plan-card.highlight p {
+      color: white;
+    }
+
+    .highlight-badge {
+      position: absolute;
+      top: -20px;
+      left: 15px;
+      background: var(--primary);
+      color: white;
+      padding: 6px 15px;
+      font-family: 'VT323', monospace;
+      font-size: 1.3rem;
+      border: 3px solid var(--border);
+      box-shadow: 4px 4px 0 var(--border);
+      z-index: 3;
+    }
+
+    .plan-card h3 {
+      font-size: 2rem;
+      color: var(--dark);
+    }
+
+    .plan-price {
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+      margin: 10px 0;
+    }
+
+    .plan-price .currency {
+      font-family: 'VT323', monospace;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .plan-price .amount {
+      font-family: 'VT323', monospace;
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--dark);
+    }
+
+    .plan-price .period {
+      font-family: 'Space Mono', monospace;
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    .plan-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .plan-features li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .plan-features li i {
+      color: var(--primary);
+      min-width: 18px;
+    }
+
+    .btn-plan {
+      margin-top: 10px;
+      width: 100%;
+      background: #c3d4d4;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .plan-card.highlight .btn-plan {
+      background: var(--primary);
+      color: white;
+    }
+
+    @media (max-width: 1024px) {
+      .plans-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .plan-card.highlight {
+        transform: scale(1);
+        order: -1;
+        margin: 40px 0;
+      }
+    }
+
     @media (max-width: 1024px) {
       .about-section {
         grid-template-columns: 1fr;
         gap: 40px;
         text-align: left;
       }
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 12px;
+      background: #e0e0e0;
+      border: 2px solid var(--border);
+      margin-top: 20px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--primary);
+      width: 0%;
+      transition: width 1.8s linear;
+    }
+
+    .footer-link {
+      color: inherit;
+      text-decoration: none;
+      transition: var(--trans-smooth);
+      border-bottom: 1px solid transparent;
+    }
+
+    .footer-link:hover {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .brutalist-divider {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      margin: 100px 0;
+      gap: 0;
+      grid-column: 1 / -1;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 4px;
+      background: var(--border);
+    }
+
+    .divider-tag {
+      background: var(--dark);
+      color: white;
+      padding: 6px 20px;
+      font-family: 'VT323', monospace;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border: 3px solid var(--border);
+      box-shadow: 5px 5px 0 var(--border);
+      text-transform: uppercase;
+      white-space: nowrap;
+      margin: 0 15px;
+      letter-spacing: 1px;
     }
   </style>
 </head>
@@ -861,7 +1338,7 @@
 
   <header>
     <div class="header-container">
-      <a href="#" class="brand dev-link">
+      <a href="#" class="brand dev-link" style="animation: fade-in-up 0.8s ease-out forwards; opacity: 0;">
         <div class="brand-icon">
           <img src="mascot.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
@@ -872,8 +1349,8 @@
         <a href="#metodologias" class="dev-link">Metodologias</a>
         <a href="#planos" class="dev-link">Planos</a>
       </nav>
-      <a href="#comecar" class="btn btn-primary dev-link" style="font-size: 1.2rem; padding: 8px 16px;">💬 Começar
-        Agora</a>
+      <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20as%20aulas%20de%20inglês."
+        class="btn btn-primary" target="_blank" style="font-size: 1.2rem; padding: 8px 16px;">💬 Começar Agora</a>
     </div>
   </header>
 
@@ -887,34 +1364,58 @@
   </div>
 
   <main>
-    <section class="hero-content" style="animation: fade-in-up 0.8s ease-out forwards;">
-      <div class="badge" style="margin-bottom: 10px;">
-        <span>🎮</span> Aulas Particulares de Inglês
-      </div>
+    <div class="hero-container" style="animation: fade-in-up 0.8s ease-out forwards;">
+      <section class="hero-content">
+        <div class="badge">
+          <i data-lucide="gamepad-2" style="width: 24px; height: 24px;"></i> Aulas Particulares de Inglês
+        </div>
 
-      <h2 class="interactive-title" style="margin-top: 0;">Teacher<br>Lupi<span class="typing-cursor">_</span></h2>
+        <h2 class="interactive-title" style="margin-top: 0;">Teacher<br>Lupi<span class="typing-cursor">_</span></h2>
 
-      <p style="max-width: 550px;">
-        Aprenda inglês com metodologias internacionais, no seu ritmo e com resultados mensuráveis.
-      </p>
+        <p style="max-width: 550px; font-size: 1.1rem; line-height: 1.4; margin-bottom: 20px;">
+          Aprenda inglês com metodologias internacionais, no seu ritmo e com resultados mensuráveis.
+        </p>
 
-      <p style="max-width: 550px;">
-        <strong>Status do Sistema:</strong> Estamos forjando uma nova plataforma oficial com foco absoluto em desempenho
-        e clareza pedagógica. A experiência vai subir de level!
-      </p>
+        <div class="hero-actions" style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px;">
+          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20as%20aulas%20de%20inglês."
+            target="_blank" class="btn btn-primary" style="font-size: 1.2rem; padding: 15px 30px;">
+            FALAR NO WHATSAPP
+          </a>
+          <a href="#avisar" class="btn dev-link"
+            style="font-size: 1.2rem; padding: 15px 30px; background: white; border: var(--border-thick) solid var(--border);">
+            AVISAR-ME NO LANÇAMENTO
+          </a>
+        </div>
 
-      <div class="hero-actions">
-        <a href="#whatsapp" class="btn btn-primary dev-link">Falar no WhatsApp</a>
-        <a href="#avisar" class="btn dev-link">Avisar-me no Lançamento</a>
-      </div>
-    </section>
+        <div class="bento-section">
+          <div class="bento-card">
+            <i data-lucide="heart" class="bento-card-icon"></i>
+            <h3 class="pixel-font">AULAS<br>PERSONALIZADAS</h3>
+          </div>
+          <div class="bento-card">
+            <i data-lucide="star" class="bento-card-icon"></i>
+            <h3 class="pixel-font">10<br>METODOLOGIAS</h3>
+          </div>
+          <div class="bento-card">
+            <i data-lucide="book" class="bento-card-icon"></i>
+            <h3 class="pixel-font">TODOS OS<br>NÍVEIS</h3>
+          </div>
+        </div>
+      </section>
 
-    <section class="hero-mascot">
-      <div class="mascot-container">
-        <img src="mascot.jpg" alt="Mascote Teacher Lupi" class="mascot-img">
-        <div class="lvl-up pixel-font">☆ LVL UP</div>
-      </div>
-    </section>
+      <section class="hero-mascot">
+        <div class="hero-mascot-frame">
+          <img src="mascot.jpg" alt="Teacher Lupi Mascot">
+          <div class="lvl-up-tag"><i data-lucide="zap"></i> LVL UP!</div>
+        </div>
+      </section>
+    </div>
+
+    <div class="brutalist-divider">
+      <div class="divider-line"></div>
+      <div class="divider-tag">Main Objectives</div>
+      <div class="divider-line"></div>
+    </div>
 
     <!-- NOVA SEÇÃO SOBRE -->
     <section id="sobre" class="about-section" style="animation: fade-in-up 0.8s ease-out forwards;">
@@ -942,37 +1443,303 @@
       </div>
     </section>
 
-    <div class="bento-section">
-      <div class="bento-card brutal-box" style="animation: fade-in-up 0.6s ease-out forwards 0.2s; opacity: 0;">
-        <span class="bento-icon">❤️</span>
-        <h3>Aulas personalizadas</h3>
-        <p>Conteúdo focado nos seus objetivos reais, sem enrolação.</p>
+    <!-- NOVA SEÇÃO METODOLOGIAS -->
+    <section id="metodologias" class="methodology-section" style="animation: fade-in-up 0.8s ease-out forwards;">
+      <div class="methodology-header">
+        <span class="section-badge-retro">[ Metodologias ]</span>
+        <h2 class="pixel-font" style="font-size: clamp(3rem, 6vw, 4.5rem); color: var(--dark); margin-bottom: 20px;">
+          Como a gente ensina</h2>
+        <p style="max-width: 800px; font-size: 1.2rem;">
+          Não usamos uma única abordagem. Combinamos várias para que o aprendizado seja dinâmico, prático e alinhado aos
+          seus objetivos.
+        </p>
       </div>
-      <div class="bento-card brutal-box" style="animation: fade-in-up 0.6s ease-out forwards 0.4s; opacity: 0;">
-        <span class="bento-icon">⭐</span>
-        <h3>10 Metodologias</h3>
-        <p>Abordagens variadas que se adaptam ao seu estilo.</p>
+
+      <div class="methodology-grid">
+        <!-- Card 01 -->
+        <div class="method-card">
+          <div class="method-header">
+            <div class="method-icon"><i data-lucide="clipboard-check"></i></div>
+            <span class="method-number">#01</span>
+          </div>
+          <h3>Placement Test</h3>
+          <p>Teste de nivelamento inicial para identificar seu ponto de partida real, suas necessidades e evitar repetir
+            o que você já domina.</p>
+          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20Placement%20Test."
+            target="_blank" class="method-cta">Saber mais →</a>
+        </div>
+
+        <!-- Card 02 -->
+        <div class="method-card">
+          <div class="method-header">
+            <div class="method-icon"><i data-lucide="book-open"></i></div>
+            <span class="method-number">#02</span>
+          </div>
+          <h3>Método Tradicional</h3>
+          <p>Gramática-Tradução com foco em domínio estrutural. Ideal para provas como TOEFL e concursos. Ex.: traduzir
+            'Eu comi pizza ontem' → 'I ate pizza yesterday'.</p>
+          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20Método%20Tradicional."
+            target="_blank" class="method-cta">Saber mais →</a>
+        </div>
+
+        <!-- Card 03 -->
+        <div class="method-card">
+          <div class="method-header">
+            <div class="method-icon"><i data-lucide="globe"></i></div>
+            <span class="method-number">#03</span>
+          </div>
+          <h3>Método Direto</h3>
+          <p>Imergir para fluir: tudo acontece em inglês desde o primeiro dia, com role-plays de situações reais - sem
+            tradução.</p>
+          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20Método%20Direto."
+            target="_blank" class="method-cta">Saber mais →</a>
+        </div>
+
+        <!-- Card 04 -->
+        <div class="method-card">
+          <div class="method-header">
+            <div class="method-icon"><i data-lucide="messages-square"></i></div>
+            <span class="method-number">#04</span>
+          </div>
+          <h3>Abordagem Comunicativa</h3>
+          <p>Inglês real em contexto. Ex.: simulação de entrevista de emprego para praticar 'What are your strengths?' e
+            respostas espontâneas.</p>
+          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20a%20Abordagem%20Comunicativa."
+            target="_blank" class="method-cta">Saber mais →</a>
+        </div>
+
+        <!-- Card 05 -->
+        <div class="method-card">
+          <div class="method-header">
+            <div class="method-icon"><i data-lucide="tv"></i></div>
+            <span class="method-number">#05</span>
+          </div>
+          <h3>Método Audiovisual</h3>
+          <p>Tecnologia a seu favor: cenas de séries como Friends, podcasts e música para treinar expressões e sotaques
+            britânico e americano.</p>
+          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20Método%20Audiovisual."
+            target="_blank" class="method-cta">Saber mais →</a>
+        </div>
+
+        <!-- Card 06 -->
+        <div class="method-card">
+          <div class="method-header">
+            <div class="method-icon"><i data-lucide="list-checks"></i></div>
+            <span class="method-number">#06</span>
+          </div>
+          <h3>Task-based Learning</h3>
+          <p>Aprender fazendo. Ex.: escrever um e-mail formal de reclamação e receber feedback personalizado do
+            professor.</p>
+          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20Task-based%20Learning."
+            target="_blank" class="method-cta">Saber mais →</a>
+        </div>
+
+        <!-- Card 07 -->
+        <div class="method-card">
+          <div class="method-header">
+            <div class="method-icon"><i data-lucide="sparkles"></i></div>
+            <span class="method-number">#07</span>
+          </div>
+          <h3>Método de Imersão</h3>
+          <p>Viva o idioma. Cultural Day temático (ex.: Thanksgiving) com conversas, pratos típicos e apresentações -
+            tudo em inglês.</p>
+          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20Método%20de%20Imersão."
+            target="_blank" class="method-cta">Saber mais →</a>
+        </div>
+
+        <!-- Card 08 -->
+        <div class="method-card">
+          <div class="method-header">
+            <div class="method-icon"><i data-lucide="link"></i></div>
+            <span class="method-number">#08</span>
+          </div>
+          <h3>Método Lexical</h3>
+          <p>Blocos de pronúncia úteis. Ex.: 'Check-in, please' no aeroporto ou 'Could I have the bill?' no restaurante.
+          </p>
+          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20Método%20Lexical."
+            target="_blank" class="method-cta">Saber mais →</a>
+        </div>
+
+        <!-- Card 09 -->
+        <div class="method-card">
+          <div class="method-header">
+            <div class="method-icon"><i data-lucide="lightbulb"></i></div>
+            <span class="method-number">#09</span>
+          </div>
+          <h3>Ensino por Projetos</h3>
+          <p>Criatividade em ação. Ex.: gravar um podcast sobre sustentabilidade, com pesquisa, roteiro e edição - tudo
+            em inglês.</p>
+          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20Ensino%20por%20Projetos."
+            target="_blank" class="method-cta">Saber mais →</a>
+        </div>
+
+        <!-- Card 10 -->
+        <div class="method-card">
+          <div class="method-header">
+            <div class="method-icon"><i data-lucide="brain"></i></div>
+            <span class="method-number">#10</span>
+          </div>
+          <h3>Aprendizagem por Conteúdo (CBI)</h3>
+          <p>Aprenda inglês estudando o que te interessa: medicina, tecnologia, games, negócios - com materiais como BBC
+            e TED Talks.</p>
+          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20a%20Aprendizagem%20por%20Conteúdo%20(CBI)."
+            target="_blank" class="method-cta">Saber mais →</a>
+        </div>
       </div>
-      <div class="bento-card brutal-box" style="animation: fade-in-up 0.6s ease-out forwards 0.6s; opacity: 0;">
-        <span class="bento-icon">📖</span>
-        <h3>Todos os níveis</h3>
-        <p>Do iniciante ao avançado com materiais exclusivos.</p>
+      <div style="text-align: center; margin-top: 50px;">
+        <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20as%20aulas%20de%20inglês.%20Gostaria%20de%20entender%20melhor%20suas%20metodologias."
+          target="_blank" class="btn btn-primary" style="font-size: 1.2rem; padding: 15px 35px;">
+          QUERO ESSAS METODOLOGIAS
+        </a>
       </div>
+    </section>
+
+    <div class="brutalist-divider">
+      <div class="divider-line"></div>
+      <div class="divider-tag">Choose your mission</div>
+      <div class="divider-line"></div>
     </div>
+
+    <!-- NOVA SEÇÃO PLANOS -->
+    <section id="planos" class="plans-section" style="animation: fade-in-up 0.8s ease-out forwards;">
+      <div class="plans-header">
+        <span class="section-badge-retro">[ Planos ]</span>
+        <h2 class="pixel-font" style="font-size: clamp(3rem, 6vw, 4.5rem); color: var(--dark); margin-bottom: 10px;">
+          Escolha seu plano</h2>
+        <p style="font-size: 1.2rem; opacity: 0.9;">
+          Mensalidades simples. Sem taxa de matrícula.
+        </p>
+      </div>
+
+      <div class="plans-grid">
+        <!-- Starter -->
+        <div class="plan-card">
+          <h3>Starter</h3>
+          <div class="plan-price">
+            <span class="currency">R$</span>
+            <span class="amount">300</span>
+            <span class="period">/mês</span>
+          </div>
+          <p>4 aulas por mês</p>
+          <ul class="plan-features">
+            <li><i data-lucide="check"></i> 1 aula por semana</li>
+            <li><i data-lucide="check"></i> Placement Test gratuito</li>
+            <li><i data-lucide="check"></i> Material digital</li>
+            <li><i data-lucide="check"></i> Relatório mensal</li>
+          </ul>
+          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20o%20plano%20Starter%20(R$%20300/mês)."
+            target="_blank" class="btn btn-plan">
+            <i data-lucide="message-square"></i> QUERO ESSE PLANO
+          </a>
+        </div>
+
+        <!-- Plus -->
+        <div class="plan-card highlight">
+          <div class="highlight-badge">☆ MAIS ESCOLHIDO</div>
+          <h3>Plus</h3>
+          <div class="plan-price">
+            <span class="currency">R$</span>
+            <span class="amount">400</span>
+            <span class="period">/mês</span>
+          </div>
+          <p>5 aulas por mês</p>
+          <ul class="plan-features">
+            <li><i data-lucide="check"></i> +1 aula extra por mês</li>
+            <li><i data-lucide="check"></i> Placement Test gratuito</li>
+            <li><i data-lucide="check"></i> Material digital + apps</li>
+            <li><i data-lucide="check"></i> Relatório mensal</li>
+          </ul>
+          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20o%20plano%20Plus%20(R$%20400/mês)."
+            target="_blank" class="btn btn-plan">
+            <i data-lucide="message-square"></i> QUERO ESSE PLANO
+          </a>
+        </div>
+
+        <!-- Pro -->
+        <div class="plan-card">
+          <h3>Pro</h3>
+          <div class="plan-price">
+            <span class="currency">R$</span>
+            <span class="amount">500</span>
+            <span class="period">/mês</span>
+          </div>
+          <p>8 aulas por mês</p>
+          <ul class="plan-features">
+            <li><i data-lucide="check"></i> 2 aulas por semana</li>
+            <li><i data-lucide="check"></i> Evolução acelerada</li>
+            <li><i data-lucide="check"></i> Material completo + projetos</li>
+            <li><i data-lucide="check"></i> Relatório mensal + review</li>
+          </ul>
+          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20o%20plano%20Pro%20(R$%20500/mês)."
+            target="_blank" class="btn btn-plan">
+            <i data-lucide="message-square"></i> QUERO ESSE PLANO
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <div class="brutalist-divider" style="margin-bottom: 0;">
+    <div class="divider-line"></div>
+    <div class="divider-tag">Terminal Footer</div>
+    <div class="divider-line"></div>
+  </div>
 
   <footer>
     <div class="footer-container">
-      <div class="brand dev-link" style="color: white; font-size: 1.5rem; cursor: pointer;">
-        <div class="brand-icon" style="background: transparent; border-color: white;">
-          <img src="mascot.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: cover;">
+      <div class="footer-grid"
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; width: 100%; text-align: left;">
+        <div class="footer-brand" style="animation: fade-in-up 0.8s ease-out forwards; opacity: 0;">
+          <div class="brand" style="color: white; font-size: 1.5rem; margin-bottom: 15px;">
+            <div class="brand-icon" style="background: transparent; border-color: white;">
+              <img src="mascot.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            Teacher Lupi
+          </div>
+          <p style="opacity: 0.8;">English classes • Feitas pra você evoluir de verdade</p>
         </div>
-        Teacher Lupi
+
+        <div class="footer-contact"
+          style="animation: fade-in-up 0.8s ease-out forwards; opacity: 0; animation-delay: 0.2s;">
+          <h4 class="pixel-font" style="color: var(--primary); margin-bottom: 15px; text-transform: uppercase;">Contato
+          </h4>
+          <p style="margin-bottom: 10px;">
+            <i data-lucide="mail" style="width: 16px; vertical-align: middle; margin-right: 8px;"></i>
+            <a href="mailto:teach.lupi@gmail.com" class="footer-link">teach.lupi@gmail.com</a>
+          </p>
+          <p style="margin-bottom: 10px;">
+            <i data-lucide="phone" style="width: 16px; vertical-align: middle; margin-right: 8px;"></i>
+            <a href="https://wa.me/5592981632991" class="footer-link">(92) 98163-2991</a>
+          </p>
+        </div>
+
+        <div class="footer-legal"
+          style="animation: fade-in-up 0.8s ease-out forwards; opacity: 0; animation-delay: 0.4s;">
+          <h4 class="pixel-font" style="color: var(--primary); margin-bottom: 15px; text-transform: uppercase;">
+            Informações</h4>
+          <p style="margin-bottom: 10px;">
+            CNPJ: <a href="https://cnpj.biz/61870946000101" target="_blank" class="footer-link">61.870.946/0001-01</a>
+          </p>
+          <p style="opacity: 0.6; font-size: 0.8rem;">© 2026 • Todos os direitos reservados.</p>
+        </div>
       </div>
-      <p>English classes • Feitas pra você evoluir de verdade</p>
-      <p>© 2026 • Todos os direitos reservados.</p>
     </div>
   </footer>
+
+  <div class="modal-overlay" id="redirectModal">
+    <div class="modal-box">
+      <div class="modal-icon">📲</div>
+      <h3 class="modal-title pixel-font">Redirecionando...</h3>
+      <p class="modal-text">
+        Você está saindo do site para falar diretamente com a <strong>Teacher Lupi</strong> no WhatsApp.
+      </p>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="redirectProgress"></div>
+      </div>
+      <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 15px;">Aguarde um momento enquanto preparamos sua mensagem.
+      </p>
+    </div>
+  </div>
 
   <div class="modal-overlay" id="devModal">
     <div class="modal-box">
@@ -990,29 +1757,59 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const modal = document.getElementById('devModal');
+      const redirectModal = document.getElementById('redirectModal');
+      const progress = document.getElementById('redirectProgress');
       const closeModalBtns = [document.getElementById('closeModal'), document.getElementById('btnOkModal')];
-      const devLinks = document.querySelectorAll('a, .dev-link');
+      const allLinks = document.querySelectorAll('a, .dev-link');
 
       const openModal = (e) => {
         const href = e.currentTarget.getAttribute('href');
+
+        // Interceptar WhatsApp ou Links Externos
+        if (href && (href.startsWith('https://wa.me') || href.startsWith('https://cnpj.biz'))) {
+          e.preventDefault();
+
+          const modalText = redirectModal.querySelector('.modal-text');
+          if (href.includes('cnpj.biz')) {
+            modalText.innerHTML = 'Você está sendo redirecionado para a consulta oficial do <strong>CNPJ</strong>.';
+          } else {
+            modalText.innerHTML = 'Você está saindo do site para falar diretamente com a <strong>Teacher Lupi</strong> no WhatsApp.';
+          }
+
+          redirectModal.classList.add('active');
+          progress.style.width = '0%';
+          setTimeout(() => progress.style.width = '100%', 100);
+
+          setTimeout(() => {
+            window.open(href, '_blank');
+            redirectModal.classList.remove('active');
+            progress.style.width = '0%';
+          }, 2000);
+          return;
+        }
+
         // Se o link levar a uma seção que existe, permite o scroll. Caso contrário, abre o modal.
         if (href && href.startsWith('#')) {
           const target = document.querySelector(href);
           if (target) return; // Permite o scroll padrão
         }
-        
+
         if (e.currentTarget.classList.contains('dev-link')) {
           e.preventDefault();
           modal.classList.add('active');
         }
       };
 
-      const closeModal = () => modal.classList.remove('active');
+      const closeModal = () => {
+        modal.classList.remove('active');
+        redirectModal.classList.remove('active');
+      };
 
-      devLinks.forEach(link => link.addEventListener('click', openModal));
+      allLinks.forEach(link => link.addEventListener('click', openModal));
       closeModalBtns.forEach(btn => btn.addEventListener('click', closeModal));
       modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+      redirectModal.addEventListener('click', (e) => { if (e.target === redirectModal) closeModal(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
       // Header Scroll Effect
       const header = document.querySelector('header');
@@ -1023,6 +1820,17 @@
           header.classList.remove('scrolled');
         }
       });
+
+      // Animation for brand click
+      const brand = document.querySelector('.brand');
+      const brandIcon = document.querySelector('.brand-icon');
+      brand.addEventListener('click', () => {
+        brandIcon.classList.add('animate');
+        setTimeout(() => brandIcon.classList.remove('animate'), 300);
+      });
+
+      // Initialize Lucide Icons (at the end)
+      lucide.createIcons();
     });
   </script>
 </body>

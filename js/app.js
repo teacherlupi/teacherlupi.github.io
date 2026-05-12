@@ -489,7 +489,7 @@
         icon.style.top = `${top}%`;
         icon.style.left = `${left}%`;
         icon.style.animationDelay = `${delay}s`;
-        icon.style.transform = `scale(${scale})`;
+        icon.style.setProperty('--scale', scale);
         icon.style.opacity = opacity;
 
         container.appendChild(icon);
@@ -530,12 +530,12 @@
     Toast.init();
     ModalSystem.init();
     SmoothScroll.init();
+    FloatingIconsManager.init();
     CursorManager.init();
     CounterAnimation.init();
     ProgressBarAnimation.init();
     BookingCalendar.init();
     TiltEffect.init();
-    FloatingIconsManager.init();
     ServiceWorkerManager.init();
 
     // Theme toggle button

@@ -250,14 +250,8 @@
           if (!target) return;
 
           e.preventDefault();
-          const headerOffset = 100;
-          const elementPosition = target.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
+          MobileMenu.close();
+          target.scrollIntoView({ behavior: 'smooth' });
         });
       });
     }
@@ -266,6 +260,12 @@
   // ── Premium Cursor ──────────────────────────────────────────────────
   const CursorManager = {
     init() {
+      // Disable custom cursor on touch devices or small screens
+      if (window.matchMedia('(hover: none)').matches || window.innerWidth <= 768) {
+        document.body.style.cursor = 'auto';
+        return;
+      }
+
       const dot = document.getElementById('cursorDot');
       const ring = document.getElementById('cursorRing');
       if (!dot || !ring) return;

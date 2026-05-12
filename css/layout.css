@@ -1,0 +1,337 @@
+/* ==========================================================================
+   TEACHER LUPI — LAYOUT
+   Grid system, containers, header, footer, responsive breakpoints
+   ========================================================================== */
+
+/* CONTAINER */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+}
+
+/* MAIN */
+.site-main {
+  flex: 1;
+  position: relative;
+  z-index: var(--z-default);
+}
+
+/* PAGE WRAPPER */
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* --------------------------------------------------------------------------
+   HEADER
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  z-index: var(--z-header);
+  background: var(--color-backdrop);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: var(--border-width) solid transparent;
+  padding: var(--space-3) 0;
+  transition: var(--transition-normal);
+  animation: slide-down 0.6s var(--ease-bounce) forwards;
+}
+
+.site-header.is-scrolled {
+  background: var(--color-backdrop);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom-color: var(--color-primary);
+  box-shadow: 0 8px 30px var(--color-primary-soft);
+  padding: var(--space-1) 0;
+}
+
+.header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Brand */
+.header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  text-decoration: none;
+  color: var(--color-ink);
+  padding: var(--space-2) var(--space-3);
+  transition: var(--transition-bounce);
+}
+
+.header__brand-icon {
+  width: 42px; height: 42px;
+  background: var(--color-card);
+  border: var(--neo-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--neo-shadow-xs);
+  overflow: hidden;
+  transition: var(--transition-bounce);
+}
+
+.header__brand-icon img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+.header__brand:hover {
+  background: var(--color-ink);
+  color: var(--color-surface);
+  transform: translateY(-3px);
+  box-shadow: var(--neo-shadow-sm);
+}
+
+.header__brand:hover .header__brand-icon {
+  transform: rotate(-5deg) scale(1.05);
+  border-color: var(--color-primary);
+}
+
+/* Nav */
+.header__nav {
+  display: flex;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+.header__nav-link {
+  font-weight: 700;
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  padding: var(--space-1) var(--space-3);
+  transition: var(--transition-fast);
+  letter-spacing: var(--tracking-wide);
+}
+
+.header__nav-link:hover {
+  background: var(--color-ink);
+  color: var(--color-surface);
+  transform: translateY(-3px);
+  box-shadow: var(--neo-shadow-sm);
+}
+
+/* Header actions */
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Mobile menu button */
+.header__mobile-btn {
+  display: none;
+  width: 44px; height: 44px;
+  background: var(--color-ink);
+  color: var(--color-surface);
+  border: var(--neo-border);
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--neo-shadow-xs);
+}
+
+.header__mobile-btn svg { width: 22px; height: 22px; }
+
+/* --------------------------------------------------------------------------
+   MOBILE NAV OVERLAY
+   -------------------------------------------------------------------------- */
+.mobile-nav {
+  position: fixed;
+  inset: 0;
+  background: var(--color-ink);
+  z-index: var(--z-mobile-nav);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-10);
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--duration-slow) ease;
+}
+
+.mobile-nav.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-nav__close {
+  position: absolute;
+  top: var(--space-5);
+  right: var(--space-5);
+  border: 3px solid var(--color-surface);
+  color: var(--color-surface);
+  width: 48px; height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-nav__close svg { width: 24px; height: 24px; }
+
+.mobile-nav__links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  text-align: center;
+}
+
+.mobile-nav__links a {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  color: var(--color-surface);
+  transition: var(--transition-fast);
+}
+
+.mobile-nav__links a:hover {
+  color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+/* --------------------------------------------------------------------------
+   STICKY CTA
+   -------------------------------------------------------------------------- */
+.sticky-cta {
+  position: fixed;
+  bottom: 0; left: 0;
+  width: 100%;
+  z-index: var(--z-sticky);
+  background: var(--color-backdrop);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: var(--neo-border-heavy);
+  padding: var(--space-3) 0;
+  transform: translateY(100%);
+  transition: transform var(--duration-slow) var(--ease-smooth);
+}
+
+.sticky-cta.is-visible { transform: translateY(0); }
+
+.sticky-cta__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.sticky-cta__text {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  text-transform: uppercase;
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   FOOTER
+   -------------------------------------------------------------------------- */
+.site-footer {
+  background: var(--color-ink);
+  color: var(--color-surface);
+  padding: var(--space-16) 0 var(--space-10);
+  border-top: var(--neo-border-heavy);
+  position: relative;
+  z-index: var(--z-cards);
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-10);
+}
+
+.footer__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  color: var(--color-surface);
+  margin-bottom: var(--space-4);
+}
+
+.footer__brand-icon {
+  width: 40px; height: 40px;
+  border: var(--neo-border);
+  border-color: var(--color-surface);
+  overflow: hidden;
+}
+
+.footer__brand-icon img { width: 100%; height: 100%; object-fit: cover; }
+
+.footer__heading {
+  color: var(--color-primary);
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-4);
+}
+
+.footer__link {
+  color: inherit;
+  border-bottom: 1px solid transparent;
+  transition: var(--transition-fast);
+}
+
+.footer__link:hover {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.footer__copy {
+  opacity: 0.5;
+  font-size: var(--text-xs);
+  margin-top: var(--space-3);
+}
+
+.footer__bottom {
+  margin-top: var(--space-10);
+  padding-top: var(--space-6);
+  border-top: 1px solid rgba(255,255,255,0.15);
+  text-align: center;
+  opacity: 0.6;
+  font-size: var(--text-sm);
+}
+
+/* --------------------------------------------------------------------------
+   SECTION SPACING
+   -------------------------------------------------------------------------- */
+.section {
+  padding: var(--section-gap) 0;
+  scroll-margin-top: 100px;
+}
+
+.section__badge {
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-4);
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .footer__grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .header__nav,
+  .header__actions .neo-btn { display: none; }
+  .header__mobile-btn { display: flex; }
+  .sticky-cta__text { display: none; }
+  .footer__grid { grid-template-columns: 1fr; gap: var(--space-8); }
+}
+
+@media (max-width: 480px) {
+  :root { --container-pad: var(--space-4); }
+}

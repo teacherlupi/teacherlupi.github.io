@@ -1,0 +1,190 @@
+/* ==========================================================================
+   TEACHER LUPI — DESIGN TOKENS
+   Neo-Brutalist Premium Design System
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   COLOR TOKENS — Light Mode (Default)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Surface Colors */
+  --color-surface:       #f4efe6;
+  --color-surface-alt:   #eadecb;
+  --color-card:          #ffffff;
+  --color-ink:           #1a1a1a;
+  --color-ink-muted:     #555555;
+
+  /* Brand Colors */
+  --color-primary:       #8b2828;
+  --color-primary-hover: #b03535;
+  --color-primary-soft:  rgba(139, 40, 40, 0.1);
+  --color-accent:        #ffcc00;
+  --color-accent-dark:   #d4aa00;
+  --color-muted:         #c3d4d4;
+  --color-muted-dark:    #a0b5b5;
+
+  /* Feedback Colors */
+  --color-success:       #2d8a4e;
+  --color-error:         #d63031;
+  --color-info:          #0984e3;
+
+  /* Overlay */
+  --color-overlay:       rgba(26, 26, 26, 0.85);
+  --color-backdrop:      rgba(244, 239, 230, 0.85);
+
+  /* --------------------------------------------------------------------------
+     SPACING SCALE — 4px base unit
+     -------------------------------------------------------------------------- */
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   20px;
+  --space-6:   24px;
+  --space-7:   28px;
+  --space-8:   32px;
+  --space-10:  40px;
+  --space-12:  48px;
+  --space-14:  56px;
+  --space-16:  64px;
+  --space-20:  80px;
+  --space-24:  96px;
+  --space-32:  128px;
+
+  /* --------------------------------------------------------------------------
+     TYPOGRAPHY
+     -------------------------------------------------------------------------- */
+  --font-display: 'VT323', monospace;
+  --font-body:    'Space Mono', monospace;
+
+  --text-xs:    0.75rem;   /* 12px */
+  --text-sm:    0.875rem;  /* 14px */
+  --text-base:  1rem;      /* 16px */
+  --text-lg:    1.125rem;  /* 18px */
+  --text-xl:    1.25rem;   /* 20px */
+  --text-2xl:   1.5rem;    /* 24px */
+  --text-3xl:   2rem;      /* 32px */
+  --text-4xl:   2.5rem;    /* 40px */
+  --text-5xl:   3rem;      /* 48px */
+  --text-6xl:   4rem;      /* 64px */
+  --text-hero:  clamp(3.5rem, 10vw, 7.5rem);
+
+  --leading-tight:   1.1;
+  --leading-snug:    1.3;
+  --leading-normal:  1.6;
+  --leading-relaxed: 1.8;
+
+  --tracking-tight:  -0.02em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.05em;
+  --tracking-wider:   0.1em;
+
+  /* --------------------------------------------------------------------------
+     NEO-BRUTALIST BORDERS & SHADOWS
+     -------------------------------------------------------------------------- */
+  --border-width:    3px;
+  --border-heavy:    5px;
+  --border-style:    solid;
+  --border-color:    var(--color-ink);
+  --neo-border:      var(--border-width) var(--border-style) var(--border-color);
+  --neo-border-heavy: var(--border-heavy) var(--border-style) var(--border-color);
+
+  --neo-shadow-xs:   2px 2px 0 var(--border-color);
+  --neo-shadow-sm:   4px 4px 0 var(--border-color);
+  --neo-shadow-md:   8px 8px 0 var(--border-color);
+  --neo-shadow-lg:   12px 12px 0 var(--border-color);
+  --neo-shadow-xl:   16px 16px 0 var(--border-color);
+  --neo-shadow-primary: 8px 8px 0 var(--color-primary);
+
+  /* --------------------------------------------------------------------------
+     TRANSITIONS & MOTION
+     -------------------------------------------------------------------------- */
+  --ease-bounce:     cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-smooth:     cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-snap:       cubic-bezier(0.5, 0, 0, 1);
+
+  --duration-fast:   100ms;
+  --duration-normal: 200ms;
+  --duration-slow:   400ms;
+  --duration-reveal: 600ms;
+
+  --transition-fast:   all var(--duration-fast) ease;
+  --transition-normal: all var(--duration-normal) var(--ease-smooth);
+  --transition-bounce: all var(--duration-slow) var(--ease-bounce);
+
+  /* --------------------------------------------------------------------------
+     Z-INDEX LAYERS
+     -------------------------------------------------------------------------- */
+  --z-bg:        0;
+  --z-default:   1;
+  --z-cards:     10;
+  --z-sticky:    100;
+  --z-header:    500;
+  --z-overlay:   900;
+  --z-mobile-nav: 1000;
+  --z-modal:     9999;
+  --z-toast:     10000;
+
+  /* --------------------------------------------------------------------------
+     LAYOUT
+     -------------------------------------------------------------------------- */
+  --container-max:  1350px;
+  --container-pad:  var(--space-5);
+  --section-gap:    var(--space-32);
+  --card-gap:       var(--space-6);
+
+  /* --------------------------------------------------------------------------
+     SCROLL PROGRESS
+     -------------------------------------------------------------------------- */
+  --scroll-progress: 0;
+}
+
+/* --------------------------------------------------------------------------
+   COLOR TOKENS — Dark Mode
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] {
+  --color-surface:       #121212;
+  --color-surface-alt:   #1e1e1e;
+  --color-card:          #242424;
+  --color-ink:           #f0ebe3;
+  --color-ink-muted:     #a0a0a0;
+
+  --color-primary:       #e04545;
+  --color-primary-hover: #ff6b6b;
+  --color-primary-soft:  rgba(224, 69, 69, 0.15);
+  --color-accent:        #ffd633;
+  --color-accent-dark:   #e6c200;
+  --color-muted:         #2e3d3d;
+  --color-muted-dark:    #1e2d2d;
+
+  --color-overlay:       rgba(0, 0, 0, 0.9);
+  --color-backdrop:      rgba(18, 18, 18, 0.9);
+
+  --border-color:        #f0ebe3;
+}
+
+/* --------------------------------------------------------------------------
+   SYSTEM PREFERENCE — auto dark mode on first visit
+   -------------------------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-surface:       #121212;
+    --color-surface-alt:   #1e1e1e;
+    --color-card:          #242424;
+    --color-ink:           #f0ebe3;
+    --color-ink-muted:     #a0a0a0;
+
+    --color-primary:       #e04545;
+    --color-primary-hover: #ff6b6b;
+    --color-primary-soft:  rgba(224, 69, 69, 0.15);
+    --color-accent:        #ffd633;
+    --color-accent-dark:   #e6c200;
+    --color-muted:         #2e3d3d;
+    --color-muted-dark:    #1e2d2d;
+
+    --color-overlay:       rgba(0, 0, 0, 0.9);
+    --color-backdrop:      rgba(18, 18, 18, 0.9);
+
+    --border-color:        #f0ebe3;
+  }
+}

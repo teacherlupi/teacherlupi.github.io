@@ -1,1971 +1,896 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Teacher Lupi | Site em Desenvolvimento</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Lupi | Aulas de Inglês Personalizadas</title>
+  <meta name="description" content="Aprenda inglês com metodologias internacionais, no seu ritmo e com resultados mensuráveis. Aulas particulares personalizadas com Teacher Lupi.">
+  <meta name="theme-color" content="#8b2828">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://teacherlupi.com/">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Teacher Lupi | Aulas de Inglês Personalizadas">
+  <meta property="og:description" content="Aprenda inglês com metodologias internacionais, no seu ritmo e com resultados mensuráveis.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://teacherlupi.com/">
+  <meta property="og:image" content="https://teacherlupi.com/android-chrome-512x512.png">
+  <meta property="og:locale" content="pt_BR">
+  <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
   <link rel="manifest" href="site.webmanifest">
-
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=VT323&display=swap"
-    rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
-
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/sections.css?v=1.0.1">
+  <link rel="stylesheet" href="css/animations.css">
   <style>
-    /* ==========================================================================
-       1. VARIÁVEIS GLOBAIS E TOKENS DE DESIGN (USER PATTERN)
-       ========================================================================== */
-    :root {
-      --bg-base: #f4efe6;
-      --bg-pattern: #eadecb;
-      --primary: #8b2828;
-      --primary-hover: #b03535;
-      --highlight: #ffcc00;
-      --highlight-dark: #d4aa00;
-      --dark: #1a1a1a;
-      --dark-hover: #333333;
-      --card-bg: #ffffff;
-      --border: #1a1a1a;
-      --overlay: rgba(26, 26, 26, 0.85);
-
-      --border-width: 3px;
-      --border-thick: 5px;
-      --shadow-offset: 8px;
-      --shadow-offset-sm: 4px;
-      --shadow-offset-lg: 14px;
-
-      --trans-fast: 0.15s ease;
-      --trans-smooth: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      overflow-x: hidden;
-    }
-
-    body {
-      background-color: var(--bg-base);
-      background-image:
-        linear-gradient(45deg, var(--bg-pattern) 25%, transparent 25%, transparent 75%, var(--bg-pattern) 75%, var(--bg-pattern)),
-        linear-gradient(45deg, var(--bg-pattern) 25%, transparent 25%, transparent 75%, var(--bg-pattern) 75%, var(--bg-pattern));
-      background-size: 4px 4px;
-      background-position: 0 0, 2px 2px;
-      color: var(--dark);
-      font-family: 'Space Mono', monospace;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* ==========================================================================
-       2. TIPOGRAFIA E ANIMAÇÕES
-       ========================================================================== */
-    h1,
-    h2,
-    h3,
-    .pixel-font {
-      font-family: 'VT323', monospace;
-      font-weight: normal;
-      line-height: 1.1;
-      text-transform: uppercase;
-    }
-
-    .typing-cursor {
-      display: inline-block;
-      color: var(--primary);
-      animation: blink 1s step-end infinite;
-    }
-
-    @keyframes blink {
-
-      0%,
-      100% {
-        opacity: 1;
-      }
-
-      50% {
-        opacity: 0;
-      }
-    }
-
-    @keyframes fade-in-up {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes float-subtle {
-
-      0%,
-      100% {
-        transform: translateY(0) rotate(0deg);
-      }
-
-      50% {
-        transform: translateY(-10px) rotate(1.5deg);
-      }
-    }
-
-
-    /* ==========================================================================
-       3. BACKGROUND FLUTUANTE (TAPES & ICONS)
-       ========================================================================== */
-    .floating-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .bg-tape {
-      position: absolute;
-      width: 150vw;
-      left: -25vw;
-      opacity: 0.06;
-      pointer-events: none;
-    }
-
-    .bg-tape.tape-1 {
-      top: 20%;
-      transform: rotate(-10deg);
-    }
-
-    .bg-tape.tape-2 {
-      top: 65%;
-      transform: rotate(15deg);
-    }
-
-    .bg-tape.tape-3 {
-      top: 90%;
-      transform: rotate(-5deg);
-    }
-
-    .float-icon {
-      position: absolute;
-      font-size: 3rem;
-      opacity: 0.15;
-      animation: float-random 6s ease-in-out infinite alternate;
-      pointer-events: auto;
-      cursor: crosshair;
-      transition: var(--trans-smooth);
-    }
-
-    .float-icon:hover {
-      opacity: 0.8;
-      transform: scale(1.5) rotate(20deg) !important;
-      animation-play-state: paused;
-    }
-
-    @keyframes float-random {
-      0% {
-        transform: translateY(0) rotate(0deg);
-      }
-
-      100% {
-        transform: translateY(-40px) rotate(15deg);
-      }
-    }
-
-    /* ==========================================================================
-       4. CABEÇALHO
-       ========================================================================== */
-    header {
-      background-color: rgba(244, 239, 230, 0.8);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: var(--border-width) solid transparent;
-      padding: 10px 0;
-      width: 100%;
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 999;
-      transition: all 0.3s ease;
-      display: flex;
-      justify-content: center;
-      animation: slide-down 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    }
-
-    header.scrolled {
-      background-color: rgba(244, 239, 230, 0.9);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border-bottom-color: var(--primary);
-      box-shadow: 0 10px 30px rgba(139, 40, 40, 0.1);
-      padding: 5px 0;
-    }
-
-    header.scrolled .brand {
-      color: var(--primary);
-    }
-
-    header.scrolled nav a {
-      color: var(--primary);
-    }
-
-    .header-container {
-      width: 100%;
-      max-width: 1350px;
-      padding: 0 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    @keyframes slide-down {
-      from {
-        transform: translateY(-100%);
-      }
-
-      to {
-        transform: translateY(0);
-      }
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: 'VT323', monospace;
-      font-size: 2.2rem;
-      text-decoration: none;
-      color: var(--dark);
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      padding: 8px 15px;
-    }
-
-    .brand-icon {
-      width: 45px;
-      height: 45px;
-      background-color: var(--card-bg);
-      border: var(--border-width) solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      box-shadow: 2px 2px 0 var(--border);
-      transition: var(--trans-smooth);
-    }
-
-    .brand:hover {
-      background-color: var(--dark);
-      color: var(--bg-base);
-      transform: translateY(-4px);
-      box-shadow: 6px 6px 0 var(--primary);
-    }
-
-    .brand:hover .brand-icon {
-      transform: rotate(-5deg) scale(1.05);
-      border-color: var(--primary);
-      box-shadow: 3px 3px 0 var(--primary);
-    }
-
-    .brand:active {
-      transform: translateY(-1px);
-      box-shadow: 2px 2px 0 var(--primary);
-    }
-
-    @keyframes icon-pop {
-      0% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.2);
-      }
-
-      100% {
-        transform: scale(1);
-      }
-    }
-
-    .brand-icon.animate {
-      animation: icon-pop 0.3s ease-out;
-    }
-
-    nav {
-      display: flex;
-      gap: 30px;
-      align-items: center;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: var(--dark);
-      font-weight: 700;
-      font-size: 1rem;
-      text-transform: uppercase;
-      transition: var(--trans-fast);
-      padding: 5px 10px;
-    }
-
-    nav a:hover {
-      background-color: var(--dark);
-      color: var(--bg-base);
-      transform: translateY(-4px);
-      box-shadow: 4px 4px 0 var(--primary);
-    }
-
-    /* ==========================================================================
-       5. COMPONENTES BRUTALISTAS
-       ========================================================================== */
-    .brutal-box {
-      border: var(--border-thick) solid var(--border);
-      background: var(--card-bg);
-      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border);
-      transition: var(--trans-smooth);
-    }
-
-    .brutal-box:hover {
-      transform: translate(-4px, -4px);
-      box-shadow: var(--shadow-offset-lg) var(--shadow-offset-lg) 0 var(--border);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 28px;
-      border: var(--border-width) solid var(--border);
-      background: var(--card-bg);
-      color: var(--dark);
-      text-decoration: none;
-      font-family: 'VT323', monospace;
-      font-size: 1.6rem;
-      text-transform: uppercase;
-      box-shadow: var(--shadow-offset-sm) var(--shadow-offset-sm) 0 var(--border);
-      cursor: pointer;
-      transition: all 0.1s ease-in-out;
-    }
-
-    .btn:hover {
-      animation: button-shake 0.4s ease-in-out;
-      background-color: #f0f0f0;
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0 var(--border);
-    }
-
-    .btn:active {
-      transform: translate(var(--shadow-offset-sm), var(--shadow-offset-sm)) !important;
-      box-shadow: 0 0 0 var(--border) !important;
-    }
-
-    .btn-primary {
-      background-color: var(--primary);
-      color: #fff;
-    }
-
-    .btn-primary:hover {
-      background-color: var(--primary-hover);
-      color: #fff;
-    }
-
-    @keyframes button-shake {
-      0% {
-        transform: translate(-2px, -2px) rotate(0deg);
-      }
-
-      25% {
-        transform: translate(-2px, -2px) rotate(-2deg);
-      }
-
-      50% {
-        transform: translate(-2px, -2px) rotate(2deg);
-      }
-
-      75% {
-        transform: translate(-2px, -2px) rotate(-1deg);
-      }
-
-      100% {
-        transform: translate(-2px, -2px) rotate(0deg);
-      }
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      background: #c3d4d4;
-      border: var(--border-thick) solid var(--border);
-      padding: 8px 16px;
-      font-family: 'VT323', monospace;
-      font-size: 1.5rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      color: var(--dark);
-      margin-bottom: 30px;
-      width: fit-content;
-    }
-
-    /* ==========================================================================
-       6. CONSTRUCTION TAPE
-       ========================================================================== */
-    .construction-tape-wrapper {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-      transform: rotate(-1.5deg) scale(1.05);
-      margin-top: 30px;
-      margin-bottom: 20px;
-      overflow: hidden;
-    }
-
-    .construction-tape {
-      background-color: var(--highlight);
-      color: var(--border);
-      border-top: 4px solid var(--border);
-      border-bottom: 4px solid var(--border);
-      padding: 12px 0;
-      font-size: 1.8rem;
-      font-family: 'Space Mono', monospace;
-      font-weight: 900;
-      white-space: nowrap;
-      overflow: hidden;
-      display: flex;
-      box-shadow: 0 8px 0 rgba(0, 0, 0, 0.8);
-    }
-
-    .tape-text {
-      display: inline-block;
-      padding-right: 50px;
-      animation: scroll-left 15s linear infinite;
-    }
-
-    @keyframes scroll-left {
-      0% {
-        transform: translateX(0);
-      }
-
-      100% {
-        transform: translateX(-50%);
-      }
-    }
-
-    /* ==========================================================================
-       7. MAIN LAYOUT (ELEVATED)
-       ========================================================================== */
-    main {
-      flex: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      padding: 40px 20px;
-      align-items: center;
-      max-width: 1350px;
-      margin: 0 auto;
-      width: 100%;
-      position: relative;
-      z-index: 10;
-      overflow: visible;
-    }
-
-    .hero-container {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 60px;
-      align-items: center;
-      padding: 60px 0;
-      min-height: 70vh;
-    }
-
-    .hero-content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .interactive-title {
-      font-family: 'VT323', monospace;
-      font-size: clamp(4rem, 10vw, 7.5rem);
-      line-height: 0.82;
-      margin: 10px 0 30px 0;
-      color: #8b2828;
-      text-shadow: 5px 5px 0 white;
-      letter-spacing: 2px;
-      display: inline-block;
-      transition: var(--trans-smooth);
-    }
-
-    .interactive-title:hover {
-      transform: scale(1.02) rotate(-1deg);
-      text-shadow: 6px 6px 0px rgba(139, 40, 40, 0.2);
-    }
-
-    .typing-cursor {
-      display: inline-block;
-      animation: blink 1s step-end infinite;
-      margin-left: 5px;
-      color: #8b2828;
-    }
-
-    @keyframes blink {
-
-      from,
-      to {
-        opacity: 1;
-      }
-
-      50% {
-        opacity: 0;
-      }
-    }
-
-    .hero-mascot-frame {
-      background: white;
-      border: var(--border-thick) solid var(--border);
-      box-shadow: 15px 15px 0 var(--border);
-      padding: 30px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: float-subtle 5s ease-in-out infinite;
-    }
-
-    .hero-mascot-frame img {
-      width: 100%;
-      height: auto;
-      image-rendering: pixelated;
-    }
-
-    .lvl-up-tag {
-      position: absolute;
-      bottom: -15px;
-      right: -15px;
-      background: var(--primary);
-      color: white;
-      padding: 8px 18px;
-      font-family: 'VT323', monospace;
-      font-size: 1.4rem;
-      font-weight: bold;
-      border: var(--border-width) solid var(--border);
-      box-shadow: 4px 4px 0 var(--border);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    @media (max-width: 1024px) {
-      .hero-container {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 80px;
-      }
-
-      .hero-content {
-        align-items: center;
-      }
-
-      .hero-mascot-frame {
-        max-width: 450px;
-        margin: 0 auto;
-      }
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 20px;
-      margin-top: 40px;
-    }
-
-    /* Mascot Integration */
-    .hero-mascot {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .mascot-container {
-      position: relative;
-      background: var(--card-bg);
-      padding: 20px;
-      border: var(--border-thick) solid var(--border);
-      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border);
-      transition: var(--trans-smooth);
-      animation: float-subtle 4s ease-in-out infinite;
-    }
-
-    .mascot-container:hover {
-      transform: translate(-4px, -4px);
-      box-shadow: var(--shadow-offset-lg) var(--shadow-offset-lg) 0 var(--border);
-    }
-
-    .mascot-img {
-      width: 100%;
-      max-width: 450px;
-      height: auto;
-      display: block;
-      image-rendering: -webkit-optimize-contrast;
-    }
-
-    .lvl-up {
-      position: absolute;
-      bottom: -20px;
-      right: -20px;
-      background: var(--primary);
-      color: white;
-      padding: 8px 16px;
-      font-size: 1.5rem;
-      font-weight: 800;
-      border: var(--border-width) solid var(--border);
-      box-shadow: 4px 4px 0 var(--border);
-    }
-
-    /* ==========================================================================
-       6. SEÇÃO BENTO (MOVIMENTADA PARA O HERO)
-       ========================================================================== */
-    .bento-section {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-top: 50px;
-      width: 100%;
-      max-width: 800px;
-    }
-
-    .bento-card {
-      background: var(--card-bg);
-      border: var(--border-thick) solid var(--border);
-      padding: 15px 20px;
-      text-align: left;
-      box-shadow: 6px 6px 0 var(--border);
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
-      transition: var(--trans-smooth);
-    }
-
-    .bento-card:hover {
-      transform: translate(-3px, -3px);
-      box-shadow: 9px 9px 0 var(--border);
-    }
-
-    .bento-card-icon {
-      width: 24px;
-      height: 24px;
-      color: #8b2828;
-    }
-
-    .bento-card h3 {
-      font-family: 'VT323', monospace;
-      color: var(--dark);
-      font-size: 1.3rem;
-      font-weight: bold;
-      margin: 0;
-      line-height: 1;
-      text-transform: uppercase;
-    }
-
-    @media (max-width: 768px) {
-      .bento-section {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* ==========================================================================
-       8. MODAL
-       ========================================================================== */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: var(--overlay);
-      backdrop-filter: blur(5px);
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .modal-box {
-      background-color: var(--bg-base);
-      border: var(--border-thick) solid var(--border);
-      padding: 40px;
-      max-width: 500px;
-      width: 90%;
-      text-align: center;
-      box-shadow: 15px 15px 0 var(--primary);
-      transform: translateY(50px) scale(0.9);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-    }
-
-    .modal-overlay.active .modal-box {
-      transform: translateY(0) scale(1);
-    }
-
-    .modal-close-btn {
-      position: absolute;
-      top: -20px;
-      right: -20px;
-      width: 50px;
-      height: 50px;
-      background-color: var(--primary);
-      color: white;
-      border: var(--border-width) solid var(--border);
-      font-size: 2rem;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 4px 4px 0 var(--border);
-      transition: var(--trans-fast);
-    }
-
-    .modal-close-btn:hover {
-      transform: scale(1.1) rotate(90deg);
-    }
-
-    /* ==========================================================================
-       9. FOOTER
-       ========================================================================== */
-    footer {
-      background-color: var(--dark);
-      color: #fff;
-      padding: 40px 0;
-      display: flex;
-      justify-content: center;
-      border-top: var(--border-width) solid var(--border);
-      position: relative;
-      z-index: 10;
-    }
-
-    .footer-container {
-      width: 100%;
-      max-width: 1350px;
-      padding: 0 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    @media (max-width: 1024px) {
-      .footer-container {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-      }
-    }
-
-    @media (max-width: 1024px) {
-      main {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        text-align: center;
-      }
-
-      .hero-content {
-        order: 2;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .hero-mascot {
-        order: 1;
-      }
-
-      .hero-actions {
-        width: 100%;
-        justify-content: center;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .header-container {
-        padding: 15px 20px;
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 0;
-      }
-
-      nav, .header-cta {
-        display: none;
-      }
-
-      .mobile-menu-btn {
-        display: flex;
-      }
-
-      .hero-container {
-        padding: 40px 20px;
-        min-height: auto;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-      }
-
-      .hero-mascot {
-        max-width: 280px;
-        margin: 20px auto;
-      }
-
-      .scroll-hint {
-        display: flex;
-      }
-    }
-
-    /* MOBILE NAV OVERLAY STYLES */
-    .mobile-nav-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--dark);
-      z-index: 1000;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
-    }
-
-    .mobile-nav-overlay.active {
-      display: flex;
-    }
-
-    .close-menu {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: none;
-      border: 3px solid var(--bg-base);
-      color: var(--bg-base);
-      font-size: 2rem;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-
-    .mobile-nav-links {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-      text-align: center;
-    }
-
-    .mobile-nav-links a {
-      font-family: 'VT323', monospace;
-      font-size: 2.5rem;
-      color: var(--bg-base);
-      text-decoration: none;
-      transition: var(--trans-fast);
-    }
-
-    .mobile-nav-links a:hover {
-      color: var(--primary);
-      transform: scale(1.1);
-    }
-
-    /* SCROLL HINT */
-    .scroll-hint {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px;
-      font-family: 'VT323', monospace;
-      font-size: 1.1rem;
-      color: var(--primary);
-      position: absolute;
-      bottom: 15px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-      pointer-events: none;
-      opacity: 0.8;
-    }
-
-    .scroll-arrow {
-      width: 20px;
-      height: 20px;
-      border-right: 3px solid var(--primary);
-      border-bottom: 3px solid var(--primary);
-      transform: rotate(45deg);
-      animation: bounce 2s infinite;
-    }
-
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% {transform: translateY(0) rotate(45deg);}
-      40% {transform: translateY(-10px) rotate(45deg);}
-      60% {transform: translateY(-5px) rotate(45deg);}
-    }
-
-    .mobile-menu-btn {
-      display: none;
-      background: var(--dark);
-      color: var(--bg-base);
-      border: 3px solid var(--border);
-      width: 45px;
-      height: 45px;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 3px 3px 0 var(--primary);
-    }
-
-    @media (max-width: 480px) {
-      .hero-content h2 {
-        font-size: 2.8rem;
-      }
-
-      .badge {
-        font-size: 0.8rem;
-        padding: 6px 10px;
-      }
-
-      .btn {
-        width: 100%;
-        font-size: 1.3rem;
-      }
-
-      .modal-box {
-        padding: 20px;
-      }
-    }
-
-    /* ==========================================================================
-       10. SEÇÃO SOBRE (NOVA)
-       ========================================================================== */
-    .about-section {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      margin: 120px 0;
-      align-items: start;
-      padding: 60px 40px;
-      background: var(--card-bg);
-      border: var(--border-thick) solid var(--border);
-      box-shadow: 12px 12px 0 var(--bg-pattern);
-      position: relative;
-      scroll-margin-top: 100px;
-    }
-
-    .about-section::before {
-      content: "";
-      position: absolute;
-      top: -15px;
-      left: -15px;
-      right: -15px;
-      bottom: -15px;
-      border: 2px solid var(--border);
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .section-badge-retro {
-      color: var(--primary);
-      font-family: 'VT323', monospace;
-      font-size: 1.5rem;
-      margin-bottom: 15px;
-      display: block;
-    }
-
-    .about-left h2 {
-      font-size: clamp(3rem, 6vw, 4.5rem);
-      color: var(--dark);
-      line-height: 1;
-      text-transform: uppercase;
-      font-family: 'VT323', monospace;
-    }
-
-    .about-right {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
-
-    .about-right p {
-      font-size: 1.2rem;
-      line-height: 1.5;
-    }
-
-    .checklist {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .checklist li {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      animation: fade-in-up 0.6s ease-out forwards;
-      opacity: 0;
-    }
-
-    .checklist li:nth-child(1) {
-      animation-delay: 0.2s;
-    }
-
-    .checklist li:nth-child(2) {
-      animation-delay: 0.4s;
-    }
-
-    .checklist li:nth-child(3) {
-      animation-delay: 0.6s;
-    }
-
-    .retro-checkbox {
-      width: 45px;
-      height: 45px;
-      min-width: 45px;
-      border: 4px solid var(--border);
-      background: #c3d4d4;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      box-shadow: 4px 4px 0 var(--border);
-    }
-
-    /* ==========================================================================
-       11. SEÇÃO METODOLOGIAS (NOVA)
-       ========================================================================== */
-    .methodology-section {
-      grid-column: 1 / -1;
-      margin: 120px 0;
-      scroll-margin-top: 100px;
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
-
-    .methodology-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 25px;
-      margin-top: 20px;
-    }
-
-    .method-card {
-      background: var(--card-bg);
-      border: var(--border-thick) solid var(--border);
-      padding: 25px;
-      box-shadow: 8px 8px 0 var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      transition: var(--trans-smooth);
-    }
-
-    .method-card:hover {
-      transform: translate(-4px, -4px);
-      box-shadow: 12px 12px 0 var(--border);
-    }
-
-    .method-cta {
-      margin-top: auto;
-      font-family: 'Space Mono', monospace;
-      font-weight: bold;
-      color: #8b2828;
-      text-decoration: none;
-      font-size: 0.95rem;
-      text-transform: uppercase;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: var(--trans-smooth);
-      padding-top: 10px;
-    }
-
-    .method-cta:hover {
-      gap: 12px;
-      color: var(--primary);
-    }
-
-    .method-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-    }
-
-    .method-icon {
-      width: 55px;
-      height: 55px;
-      min-width: 55px;
-      border: var(--border-width) solid var(--border);
-      background: #c3d4d4;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      box-shadow: 3px 3px 0 var(--border);
-    }
-
-    .method-icon i,
-    .method-icon svg {
-      width: 32px;
-      height: 32px;
-      color: var(--dark);
-    }
-
-    .method-number {
-      font-family: 'VT323', monospace;
-      font-size: 1.2rem;
-      color: var(--dark);
-      font-weight: bold;
-    }
-
-    .method-card h3 {
-      font-size: 1.6rem;
-      color: var(--dark);
-      line-height: 1.1;
-      margin-top: 5px;
-    }
-
-    .method-card p {
-      font-size: 1rem;
-      line-height: 1.4;
-      font-family: 'Space Mono', monospace;
-    }
-
-    @media (max-width: 1200px) {
-      .methodology-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    @media (max-width: 992px) {
-      .methodology-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .methodology-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* ==========================================================================
-       12. SEÇÃO PLANOS (NOVA)
-       ========================================================================== */
-    .plans-section {
-      grid-column: 1 / -1;
-      margin: 120px 0;
-      scroll-margin-top: 100px;
-      text-align: center;
-    }
-
-    .plans-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      margin-top: 60px;
-      align-items: flex-end;
-    }
-
-    .plan-card {
-      background: var(--card-bg);
-      border: var(--border-thick) solid var(--border);
-      padding: 40px 30px;
-      box-shadow: 10px 10px 0 var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      text-align: left;
-      position: relative;
-      transition: var(--trans-smooth);
-    }
-
-    .plan-card:hover {
-      transform: translate(-4px, -4px);
-      box-shadow: 14px 14px 0 var(--border);
-    }
-
-    .plan-card.highlight {
-      background: var(--dark);
-      color: white;
-      padding: 50px 30px;
-      transform: scale(1.05);
-      z-index: 2;
-      box-shadow: 12px 12px 0 var(--primary);
-    }
-
-    .plan-card.highlight:hover {
-      transform: scale(1.06) translate(-4px, -4px);
-      box-shadow: 16px 16px 0 var(--primary);
-    }
-
-    .plan-card.highlight .plan-price .amount,
-    .plan-card.highlight h3,
-    .plan-card.highlight p {
-      color: white;
-    }
-
-    .highlight-badge {
-      position: absolute;
-      top: -20px;
-      left: 15px;
-      background: var(--primary);
-      color: white;
-      padding: 6px 15px;
-      font-family: 'VT323', monospace;
-      font-size: 1.3rem;
-      border: 3px solid var(--border);
-      box-shadow: 4px 4px 0 var(--border);
-      z-index: 3;
-    }
-
-    .plan-card h3 {
-      font-size: 2rem;
-      color: var(--dark);
-    }
-
-    .plan-price {
-      display: flex;
-      align-items: baseline;
-      gap: 5px;
-      margin: 10px 0;
-    }
-
-    .plan-price .currency {
-      font-family: 'VT323', monospace;
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-
-    .plan-price .amount {
-      font-family: 'VT323', monospace;
-      font-size: 5rem;
-      line-height: 1;
-      color: var(--dark);
-    }
-
-    .plan-price .period {
-      font-family: 'Space Mono', monospace;
-      font-size: 1rem;
-      opacity: 0.8;
-    }
-
-    .plan-features {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin: 20px 0;
-    }
-
-    .plan-features li {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 1rem;
-      font-weight: 700;
-    }
-
-    .plan-features li i {
-      color: var(--primary);
-      min-width: 18px;
-    }
-
-    .btn-plan {
-      margin-top: 10px;
-      width: 100%;
-      background: #c3d4d4;
-      color: var(--dark);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .plan-card.highlight .btn-plan {
-      background: var(--primary);
-      color: white;
-    }
-
-    @media (max-width: 1024px) {
-      .plans-grid {
-        grid-template-columns: 1fr;
-        max-width: 500px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .plan-card.highlight {
-        transform: scale(1);
-        order: -1;
-        margin: 40px 0;
-      }
-    }
-
-    @media (max-width: 1024px) {
-      .about-section {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        text-align: left;
-      }
-    }
-
-    .progress-bar-container {
-      width: 100%;
-      height: 12px;
-      background: #e0e0e0;
-      border: 2px solid var(--border);
-      margin-top: 20px;
-      overflow: hidden;
-    }
-
-    .progress-bar {
-      height: 100%;
-      background: var(--primary);
-      width: 0%;
-      transition: width 1.8s linear;
-    }
-
-    .footer-link {
-      color: inherit;
-      text-decoration: none;
-      transition: var(--trans-smooth);
-      border-bottom: 1px solid transparent;
-    }
-
-    .footer-link:hover {
-      color: var(--primary);
-      border-bottom-color: var(--primary);
-    }
-
-    .brutalist-divider {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      margin: 100px 0;
-      gap: 0;
-      grid-column: 1 / -1;
-    }
-
-    .divider-line {
-      flex: 1;
-      height: 4px;
-      background: var(--border);
-    }
-
-    .divider-tag {
-      background: var(--dark);
-      color: white;
-      padding: 6px 20px;
-      font-family: 'VT323', monospace;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border: 3px solid var(--border);
-      box-shadow: 5px 5px 0 var(--border);
-      text-transform: uppercase;
-      white-space: nowrap;
-      margin: 0 15px;
-      letter-spacing: 1px;
+    /* === Floating Icons === */
+    .floating-icons { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; overflow: hidden; }
+    .float-icon { position: absolute !important; width: 32px !important; height: 32px !important; display: flex !important; align-items: center; justify-content: center; opacity: 0.10; color: #8b2828; animation: float-drift 8s ease-in-out infinite alternate; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease; pointer-events: auto; }
+    .float-icon:hover { opacity: 0.85 !important; transform: scale(2) rotate(20deg) translateY(-12px) !important; color: #ff3e3e !important; filter: drop-shadow(0 0 8px rgba(139,40,40,0.4)); }
+    [data-theme="dark"] .float-icon { color: #d67d7d; opacity: 0.06; }
+    [data-theme="dark"] .float-icon:hover { color: #ff6b6b !important; filter: drop-shadow(0 0 12px rgba(255,107,107,0.5)); }
+    .float-icon svg { width: 100%; height: 100%; stroke: currentColor; stroke-width: 1.5; fill: none; }
+    @keyframes float-drift { 0%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-12px) rotate(5deg)} 100%{transform:translateY(-22px) rotate(10deg)} }
+
+    /* === Premium Cursor === */
+    .cursor-dot { width: 8px; height: 8px; background: var(--color-primary); position: fixed; pointer-events: none; z-index: 10000; border-radius: 0; border: 2px solid var(--color-ink); transition: width 0.2s, height 0.2s, background 0.2s, border-radius 0.2s; transform: translate(-50%,-50%); }
+    .cursor-ring { width: 36px; height: 36px; border: 2px solid var(--color-primary); position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width 0.3s cubic-bezier(0.2,0.8,0.2,1), height 0.3s cubic-bezier(0.2,0.8,0.2,1), border-color 0.3s, border-radius 0.3s, opacity 0.3s; opacity: 0.6; }
+    .cursor-dot.is-hover { width: 14px; height: 14px; background: var(--color-ink); border-radius: 50%; }
+    .cursor-ring.is-hover { width: 50px; height: 50px; border-color: var(--color-ink); border-radius: 50%; opacity: 0.3; }
+    .cursor-dot.is-clicking { transform: translate(-50%,-50%) scale(0.6); }
+    .cursor-ring.is-clicking { width: 28px; height: 28px; }
+    .cursor-dot, .cursor-ring { display: none; }
+    @media (pointer: fine) { .cursor-dot, .cursor-ring { display: block; } * { cursor: none !important; } }
+
+    /* === Motion: Magnetic Hover for Buttons === */
+    .neo-btn { transition: transform 0.3s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.3s ease !important; }
+    .neo-card { transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.4s ease !important; }
+
+    /* === Social Hub === */
+    .social-hub { background: var(--color-surface-alt, #f0ebe4); position: relative; overflow: hidden; }
+    .social-hub::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(90deg,transparent,transparent 60px,var(--color-ink) 60px,var(--color-ink) 61px); opacity:0.03; pointer-events:none; }
+    .social-bento { display:grid; grid-template-columns:1fr 1fr 1fr; grid-template-rows:auto auto; gap:var(--space-6); }
+    .social-bento__main { grid-column:1/2; grid-row:1/3; }
+    .social-card { background:var(--color-card); border:var(--neo-border-heavy); box-shadow:var(--neo-shadow-sm); padding:0; overflow:hidden; transition:transform 0.4s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.4s ease; }
+    .social-card:hover { transform:translate(-4px,-4px); box-shadow:var(--neo-shadow-lg); }
+    .social-card__img { width:100%; aspect-ratio:9/12; object-fit:cover; display:block; border-bottom:var(--neo-border-heavy); }
+    .social-card__body { padding:var(--space-5); }
+    .social-card__badges { display:flex; gap:var(--space-2); flex-wrap:wrap; margin-bottom:var(--space-3); }
+    .social-badge { font-family:var(--font-display); font-size:var(--text-xs); padding:var(--space-1) var(--space-3); border:2px solid var(--color-ink); text-transform:uppercase; display:inline-flex; align-items:center; gap:4px; }
+    .social-badge--new { background:var(--color-primary); color:#fff; animation:badge-pulse 2s infinite; }
+    .social-badge--trending { background:var(--color-accent); color:var(--color-ink); }
+    .social-badge--views { background:var(--color-card); }
+    @keyframes badge-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(139,40,40,0.4)} 50%{box-shadow:0 0 0 6px rgba(139,40,40,0)} }
+    .social-phone { background:var(--color-ink); border:4px solid var(--color-ink); border-radius:16px; padding:8px; box-shadow:12px 12px 0 var(--color-primary); position:relative; overflow:hidden; }
+    .social-phone::before { content:''; position:absolute; top:4px; left:50%; transform:translateX(-50%); width:40%; height:4px; background:var(--color-surface); border-radius:4px; z-index:2; }
+    .social-phone__screen { background:var(--color-card); border-radius:8px; overflow:hidden; }
+    .social-phone__header { padding:var(--space-4) var(--space-4) var(--space-2); display:flex; align-items:center; gap:var(--space-3); }
+    .social-phone__avatar { width:36px; height:36px; border:2px solid var(--color-ink); overflow:hidden; }
+    .social-phone__avatar img { width:100%; height:100%; object-fit:cover; }
+    .social-phone__handle { font-family:var(--font-display); font-size:var(--text-sm); }
+    .social-phone__verified { color:var(--color-primary); }
+    .social-phone__stats { display:flex; gap:var(--space-5); padding:var(--space-3) var(--space-4) var(--space-4); font-size:var(--text-xs); }
+    .social-phone__stat-num { font-family:var(--font-display); font-size:var(--text-lg); display:block; }
+    .social-stats-bar { display:flex; gap:var(--space-6); justify-content:center; padding:var(--space-6) 0 0; flex-wrap:wrap; }
+    .social-stats-bar__item { text-align:center; }
+    .social-stats-bar__num { font-family:var(--font-display); font-size:var(--text-4xl); color:var(--color-primary); display:block; line-height:1; }
+    .social-stats-bar__label { font-size:var(--text-sm); opacity:0.7; margin-top:var(--space-1); }
+    .social-cta-row { display:flex; gap:var(--space-4); justify-content:center; flex-wrap:wrap; margin-top:var(--space-8); }
+
+    /* === Results / Gamification === */
+    .results-grid { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-6); }
+    .skill-card { background:var(--color-card); border:var(--neo-border-heavy); box-shadow:var(--neo-shadow-sm); padding:var(--space-6); display:flex; flex-direction:column; gap:var(--space-4); transition:transform 0.4s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.4s ease; }
+    .skill-card:hover { transform:translate(-3px,-3px); box-shadow:var(--neo-shadow-md); }
+    .skill-card__header { display:flex; justify-content:space-between; align-items:center; }
+    .skill-card__icon { width:44px; height:44px; background:var(--color-primary); border:var(--neo-border); display:flex; align-items:center; justify-content:center; color:#fff; }
+    .skill-card__level { font-family:var(--font-display); font-size:var(--text-sm); padding:var(--space-1) var(--space-3); border:2px solid var(--color-primary); color:var(--color-primary); }
+    .skill-card__title { font-family:var(--font-display); font-size:var(--text-2xl); text-transform:uppercase; }
+    .skill-bar { width:100%; height:12px; background:var(--color-surface-alt,#e8e2da); border:2px solid var(--color-ink); overflow:hidden; }
+    .skill-bar__fill { height:100%; background:linear-gradient(90deg,var(--color-primary),var(--color-accent)); width:0%; transition:width 1.5s cubic-bezier(0.4,0,0.2,1); }
+    .skill-card__xp { display:flex; gap:var(--space-3); align-items:center; flex-wrap:wrap; }
+    .xp-badge { font-family:var(--font-display); font-size:var(--text-xs); padding:2px var(--space-2); background:var(--color-ink); color:var(--color-surface); display:inline-flex; align-items:center; gap:4px; }
+    .streak-badge { font-family:var(--font-display); font-size:var(--text-xs); padding:2px var(--space-2); background:var(--color-accent); color:var(--color-ink); border:1px solid var(--color-ink); }
+    .achievement-badge { font-family:var(--font-display); font-size:var(--text-xs); padding:2px var(--space-2); background:var(--color-primary); color:#fff; border:1px solid var(--color-ink); animation:badge-pulse 3s infinite; }
+    .skill-card__quote { font-size:var(--text-sm); font-style:italic; opacity:0.7; border-top:1px solid var(--color-surface-alt,#e8e2da); padding-top:var(--space-3); margin-top:auto; }
+
+    /* === Booking === */
+    .booking { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-10); align-items:start; }
+    .booking__info { display:flex; flex-direction:column; gap:var(--space-6); }
+    .booking__features { display:flex; flex-direction:column; gap:var(--space-4); }
+    .booking__feature { display:flex; align-items:center; gap:var(--space-4); font-weight:700; }
+    .booking__feature-icon { width:40px; height:40px; min-width:40px; background:var(--color-card); border:var(--neo-border); display:flex; align-items:center; justify-content:center; color:var(--color-primary); }
+    .booking-widget { background:var(--color-card); border:var(--neo-border-heavy); box-shadow:12px 12px 0 var(--color-ink); overflow:hidden; }
+    .booking-widget__header { background:var(--color-primary); color:#fff; padding:var(--space-4) var(--space-5); font-family:var(--font-display); font-size:var(--text-xl); text-transform:uppercase; display:flex; justify-content:space-between; align-items:center; border-bottom:var(--neo-border-heavy); }
+    .booking-widget__days { display:grid; grid-template-columns:repeat(7,1fr); text-align:center; font-family:var(--font-display); font-size:var(--text-xs); padding:var(--space-3) var(--space-3) 0; gap:2px; }
+    .booking-widget__grid { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; padding:var(--space-2) var(--space-3) var(--space-3); }
+    .booking-day { aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:var(--text-sm); border:1px solid transparent; transition:all 0.2s ease; }
+    .booking-day--active { border:2px solid var(--color-ink); background:var(--color-surface); cursor:pointer; }
+    .booking-day--active:hover { background:var(--color-primary); color:#fff; transform:scale(1.1); }
+    .booking-day--busy { opacity:0.3; text-decoration:line-through; }
+    .booking-day--empty { opacity:0; }
+    .booking-widget__slots { padding:var(--space-3) var(--space-5) var(--space-5); display:flex; flex-direction:column; gap:var(--space-2); }
+    .booking-slot { display:flex; justify-content:space-between; align-items:center; padding:var(--space-3) var(--space-4); border:2px solid var(--color-ink); font-family:var(--font-display); font-size:var(--text-sm); transition:all 0.2s ease; cursor:pointer; }
+    .booking-slot:hover { background:var(--color-primary); color:#fff; transform:translateX(4px); }
+    .booking-slot__status { font-size:var(--text-xs); opacity:0.7; }
+    .booking-slot__status--open { color:var(--color-primary); font-weight:700; opacity:1; }
+
+    /* === Responsive Overrides for New Sections === */
+    @media (max-width:1024px) {
+      .social-bento { grid-template-columns:1fr 1fr; }
+      .social-bento__main { grid-column:1/3; grid-row:auto; }
+      .social-phone { max-width:400px; margin:0 auto; }
+      .results-grid { grid-template-columns:1fr; }
+      .booking { grid-template-columns:1fr; }
+    }
+    @media (max-width:768px) {
+      .social-bento { grid-template-columns:1fr !important; gap:var(--space-4) !important; }
+      .social-bento__main { grid-column:auto !important; }
+      .social-bento > * { grid-column:auto !important; }
+      .social-phone { max-width:100%; }
+      .social-card__img { aspect-ratio:4/3; }
+      .social-stats-bar { gap:var(--space-4); }
+      .social-stats-bar__num { font-size:var(--text-2xl); }
+      .social-cta-row { flex-direction:column; align-items:stretch; }
+      .social-cta-row .neo-btn { text-align:center; justify-content:center; }
+      .booking-widget { box-shadow:6px 6px 0 var(--color-ink); }
     }
   </style>
+
+
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"EducationalOrganization","name":"Teacher Lupi","url":"https://teacherlupi.com","description":"Aulas de inglês personalizadas com metodologias internacionais.","telephone":"+5592981632991","email":"teach.lupi@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Manaus","addressRegion":"AM","addressCountry":"BR"}}
+  </script>
 </head>
-
 <body>
+<div class="page">
+  <!-- Premium Cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
 
-  <div class="floating-bg" style="opacity: 0.8;">
-    <div class="bg-tape tape-1">
-      <div class="construction-tape">
-        <div class="tape-text">🚧 EM DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧 EM
-          DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧</div>
-        <div class="tape-text">🚧 EM DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧 EM
-          DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧</div>
-      </div>
-    </div>
-    <div class="bg-tape tape-2">
-      <div class="construction-tape">
-        <div class="tape-text">🚧 EM DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧 EM
-          DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧</div>
-        <div class="tape-text">🚧 EM DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧 EM
-          DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧</div>
-      </div>
-    </div>
-    <div class="bg-tape tape-3">
-      <div class="construction-tape">
-        <div class="tape-text">🚧 EM DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧 EM
-          DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧</div>
-        <div class="tape-text">🚧 EM DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧 EM
-          DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧</div>
-      </div>
-    </div>
-    <div class="float-icon" style="top: 15%; left: 5%;">🔧</div>
-    <div class="float-icon" style="top: 75%; left: 8%;">⚙️</div>
-    <div class="float-icon" style="top: 25%; right: 10%;">💻</div>
-    <div class="float-icon" style="top: 65%; right: 5%;">🚧</div>
-    <div class="float-icon" style="top: 85%; left: 50%;">🐺</div>
-  </div>
 
-  <header>
-    <div class="header-container">
-      <a href="#" class="brand dev-link" style="animation: fade-in-up 0.8s ease-out forwards; opacity: 0;">
-        <div class="brand-icon">
-          <img src="mascot.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-        Teacher Lupi
-      </a>
-      <nav>
-        <a href="#sobre" class="dev-link">Sobre</a>
-        <a href="#metodologias" class="dev-link">Metodologias</a>
-        <a href="#planos" class="dev-link">Planos</a>
-      </nav>
-      <button class="mobile-menu-btn" aria-label="Abrir menu">
-        <i data-lucide="menu"></i>
-      </button>
+  <div class="floating-icons" id="floatingIcons" aria-hidden="true"></div>
 
-      <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20as%20aulas%20de%20inglês."
-        class="btn btn-primary header-cta" target="_blank" style="font-size: 1rem; padding: 10px 20px;">
-        <i data-lucide="message-square" style="width: 18px; height: 18px; margin-right: 8px;"></i> Começar Agora
-      </a>
-    </div>
-  </header>
 
-  <!-- MOBILE NAV OVERLAY -->
-  <div class="mobile-nav-overlay">
-    <button class="close-menu" aria-label="Fechar menu"><i data-lucide="x"></i></button>
-    <nav class="mobile-nav-links">
-      <a href="#sobre" class="dev-link">01. Sobre</a>
-      <a href="#metodologias" class="dev-link">02. Metodologias</a>
-      <a href="#planos" class="dev-link">03. Planos</a>
-      <a href="https://wa.me/5592981632991" class="btn btn-primary" style="margin-top: 30px;">FALAR NO WHATSAPP</a>
+
+<!-- Loading Screen -->
+<div class="loading-screen" aria-hidden="true">
+  <div class="loading-screen__logo">Teacher Lupi</div>
+  <div class="loading-screen__bar"><div class="loading-screen__fill"></div></div>
+</div>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" aria-hidden="true"><div class="scroll-progress__fill"></div></div>
+
+<!-- Skip Nav -->
+<a href="#conteudo" class="skip-link">Pular para conteúdo</a>
+
+<!-- ═══ HEADER ═══ -->
+<header class="site-header" role="banner">
+  <div class="container header__inner">
+    <a href="#" class="header__brand" aria-label="Teacher Lupi - Início">
+      <div class="header__brand-icon"><img src="mascot.jpg" alt="" width="42" height="42" loading="eager"></div>
+      Teacher Lupi
+    </a>
+    <nav class="header__nav" aria-label="Navegação principal">
+      <a href="#sobre" class="header__nav-link">Sobre</a>
+      <a href="#metodologias" class="header__nav-link">Metodologias</a>
+      <a href="#social" class="header__nav-link">Social</a>
+      <a href="#planos" class="header__nav-link">Planos</a>
+      <a href="#faq" class="header__nav-link">FAQ</a>
     </nav>
-  </div>
-
-  <div class="construction-tape-wrapper" style="margin-top: 100px;">
-    <div class="construction-tape">
-      <div class="tape-text">🚧 EM DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧 EM
-        DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧</div>
-      <div class="tape-text">🚧 EM DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧 EM
-        DESENVOLVIMENTO • NOVO SITE EM CONSTRUÇÃO • UPGRADE DE NÍVEL EM ANDAMENTO 🚧</div>
+    <div class="header__actions">
+      <button class="neo-theme-toggle" aria-label="Alternar tema claro/escuro" type="button">
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+      <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20as%20aulas%20de%20inglês." class="neo-btn neo-btn--primary neo-btn--sm" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        Começar
+      </a>
+      <button class="header__mobile-btn" aria-label="Abrir menu" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
     </div>
   </div>
+</header>
 
-  <main>
-    <div class="hero-container" style="animation: fade-in-up 0.8s ease-out forwards;">
-      <section class="hero-content">
-        <div class="badge">
-          <i data-lucide="gamepad-2" style="width: 24px; height: 24px;"></i> Aulas Particulares de Inglês
+<!-- Mobile Nav -->
+<div class="mobile-nav" role="dialog" aria-label="Menu de navegação">
+  <button class="mobile-nav__close" aria-label="Fechar menu" type="button">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+  </button>
+  <nav class="mobile-nav__links" aria-label="Navegação mobile">
+    <a href="#sobre">01. Sobre</a>
+    <a href="#metodologias">02. Metodologias</a>
+    <a href="#social">03. Social</a>
+    <a href="#planos">04. Planos</a>
+    <a href="#faq">05. FAQ</a>
+    <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site." class="neo-btn neo-btn--primary" target="_blank" rel="noopener">Falar no WhatsApp</a>
+  </nav>
+</div>
+
+<!-- ═══ MAIN CONTENT ═══ -->
+<main id="conteudo" class="site-main">
+
+  <!-- ── HERO ── -->
+  <section class="section hero container" aria-labelledby="hero-title">
+    <div class="hero__content reveal">
+      <div class="neo-badge">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="11" width="12" height="8" rx="1"></rect><path d="m12 11-4-4h8Z"></path><path d="M12 3v4"></path></svg>
+        Aulas Particulares de Inglês
+      </div>
+      <h1 id="hero-title" class="hero__title">Teacher<br>Lupi<span class="hero__cursor">_</span></h1>
+      <p class="hero__subtitle">Aprenda inglês com metodologias internacionais, no seu ritmo e com resultados mensuráveis.</p>
+      <p class="hero__subtitle text-muted" style="font-size:var(--text-sm);margin-top:calc(-1 * var(--space-3))"><span data-typing>Level Up Your English_</span></p>
+      <div class="hero__actions">
+        <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20as%20aulas%20de%20inglês." target="_blank" rel="noopener" class="neo-btn neo-btn--primary neo-btn--lg">Falar no WhatsApp</a>
+        <a href="#planos" class="neo-btn neo-btn--ghost neo-btn--lg">Ver Planos</a>
+      </div>
+      <div class="hero__bento reveal-stagger">
+        <div class="bento-stat">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+          <span class="bento-stat__label">Aulas<br>Personalizadas</span>
         </div>
-
-        <h2 class="interactive-title" style="margin-top: 0;">Teacher<br>Lupi<span class="typing-cursor">_</span></h2>
-
-        <p style="max-width: 550px; font-size: 1.1rem; line-height: 1.4; margin-bottom: 20px;">
-          Aprenda inglês com metodologias internacionais, no seu ritmo e com resultados mensuráveis.
-        </p>
-
-        <div class="hero-actions" style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px;">
-          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20as%20aulas%20de%20inglês."
-            target="_blank" class="btn btn-primary" style="font-size: 1.2rem; padding: 15px 30px;">
-            FALAR NO WHATSAPP
-          </a>
-          <a href="#avisar" class="btn dev-link"
-            style="font-size: 1.2rem; padding: 15px 30px; background: white; border: var(--border-thick) solid var(--border);">
-            AVISAR-ME NO LANÇAMENTO
-          </a>
+        <div class="bento-stat">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <span class="bento-stat__label">10<br>Metodologias</span>
         </div>
-
-        <div class="bento-section">
-          <div class="bento-card">
-            <i data-lucide="heart" class="bento-card-icon"></i>
-            <h3 class="pixel-font">AULAS<br>PERSONALIZADAS</h3>
-          </div>
-          <div class="bento-card">
-            <i data-lucide="star" class="bento-card-icon"></i>
-            <h3 class="pixel-font">10<br>METODOLOGIAS</h3>
-          </div>
-          <div class="bento-card">
-            <i data-lucide="book" class="bento-card-icon"></i>
-            <h3 class="pixel-font">TODOS OS<br>NÍVEIS</h3>
-          </div>
+        <div class="bento-stat">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
+          <span class="bento-stat__label">Todos os<br>Níveis</span>
         </div>
-      </section>
-
-      <section class="hero-mascot">
-        <div class="hero-mascot-frame">
-          <img src="mascot.jpg" alt="Teacher Lupi Mascot">
-          <div class="lvl-up-tag"><i data-lucide="zap"></i> LVL UP!</div>
-        </div>
-      </section>
-      <div class="scroll-hint">
+      </div>
+      <div class="scroll-hint" aria-hidden="true">
         <span>[ SCROLL FOR MISSION_ ]</span>
-        <div class="scroll-arrow"></div>
+        <div class="scroll-hint__arrow"></div>
       </div>
     </div>
-
-    <div class="brutalist-divider">
-      <div class="divider-line"></div>
-      <div class="divider-tag">Main Objectives</div>
-      <div class="divider-line"></div>
-    </div>
-
-    <!-- NOVA SEÇÃO SOBRE -->
-    <section id="sobre" class="about-section" style="animation: fade-in-up 0.8s ease-out forwards;">
-      <div class="about-left">
-        <span class="section-badge-retro">[ Sobre ]</span>
-        <h2>Inglês sob medida pra você</h2>
+    <div class="hero__mascot reveal--scale">
+      <div class="mascot-frame">
+        <img src="mascot.jpg" alt="Teacher Lupi — Mascote oficial" width="400" height="400" loading="eager">
+        <div class="mascot-frame__tag">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          LVL UP!
+        </div>
       </div>
-      <div class="about-right">
-        <p>
-          Tudo começa com um Placement Test (Teste de Nivelamento) para identificar seu nível real e suas necessidades.
-          A partir daí, as aulas são construídas combinando as melhores metodologias internacionais, no ritmo do aluno,
-          com relatórios mensais de evolução em gramática, vocabulário e fluência.
-        </p>
-        <ul class="checklist">
-          <li>
-            <div class="retro-checkbox">✓</div> Placement Test inicial gratuito
-          </li>
-          <li>
-            <div class="retro-checkbox">✓</div> Ritmo adaptado ao seu perfil
-          </li>
-          <li>
-            <div class="retro-checkbox">✓</div> Relatórios mensais de evolução
-          </li>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="neo-divider container" aria-hidden="true">
+    <div class="neo-divider__line"></div>
+    <div class="neo-divider__tag">Main Objectives</div>
+    <div class="neo-divider__line"></div>
+  </div>
+
+  <!-- ── ABOUT ── -->
+  <section id="sobre" class="section container" aria-labelledby="about-title">
+    <div class="about reveal">
+      <div>
+        <span class="section__badge">[ Sobre ]</span>
+        <h2 id="about-title" class="about__title">Inglês sob medida pra você</h2>
+      </div>
+      <div>
+        <p class="about__text">Tudo começa com um Placement Test (Teste de Nivelamento) para identificar seu nível real e suas necessidades. A partir daí, as aulas são construídas combinando as melhores metodologias internacionais, no ritmo do aluno, com relatórios mensais de evolução em gramática, vocabulário e fluência.</p>
+        <ul class="about__checklist reveal-stagger checklist-reveal">
+          <li><div class="neo-checkbox">✓</div> Placement Test inicial gratuito</li>
+          <li><div class="neo-checkbox">✓</div> Ritmo adaptado ao seu perfil</li>
+          <li><div class="neo-checkbox">✓</div> Relatórios mensais de evolução</li>
         </ul>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- NOVA SEÇÃO METODOLOGIAS -->
-    <section id="metodologias" class="methodology-section" style="animation: fade-in-up 0.8s ease-out forwards;">
-      <div class="methodology-header">
-        <span class="section-badge-retro">[ Metodologias ]</span>
-        <h2 class="pixel-font" style="font-size: clamp(3rem, 6vw, 4.5rem); color: var(--dark); margin-bottom: 20px;">
-          Nossas Metodologias</h2>
-        <p style="max-width: 800px; font-size: 1.2rem; line-height: 1.6;">
-          Combinamos as melhores abordagens internacionais para garantir um aprendizado dinâmico, prático e alinhado aos seus objetivos. Tudo começa com nosso <strong>Placement Test</strong>, o primeiro passo para garantir que você avance com eficiência no nível certo.
-        </p>
+  <!-- ── METHODOLOGIES ── -->
+  <section id="metodologias" class="section container" aria-labelledby="methods-title">
+    <div class="methods__header reveal">
+      <span class="section__badge">[ Metodologias ]</span>
+      <h2 id="methods-title">Nossas Metodologias</h2>
+      <p>Combinamos as melhores abordagens internacionais para garantir um aprendizado dinâmico, prático e alinhado aos seus objetivos.</p>
+    </div>
+    <div class="methods__grid reveal-stagger">
+      <div class="neo-card method-card">
+        <div class="method-card__header">
+          <div class="neo-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg></div>
+          <span class="method-card__number">#01</span>
+        </div>
+        <h3>Método Tradicional</h3>
+        <p><strong>(Gramática-Tradução):</strong> Foco em domínio estrutural. Exercícios de conversão de tempos verbais. Ideal para TOEFL e concursos.</p>
+        <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Quero%20saber%20mais%20sobre%20o%20Método%20Tradicional." target="_blank" rel="noopener" class="method-card__cta">Saber mais →</a>
+      </div>
+      <div class="neo-card method-card">
+        <div class="method-card__header">
+          <div class="neo-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></div>
+          <span class="method-card__number">#02</span>
+        </div>
+        <h3>Método Direto</h3>
+        <p><strong>(Imergir para Fluir):</strong> 100% em inglês desde o dia 1. Role-play de situações reais sem uso de traduções.</p>
+        <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Quero%20saber%20mais%20sobre%20o%20Método%20Direto." target="_blank" rel="noopener" class="method-card__cta">Saber mais →</a>
+      </div>
+      <div class="neo-card method-card">
+        <div class="method-card__header">
+          <div class="neo-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z"></path><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"></path></svg></div>
+          <span class="method-card__number">#03</span>
+        </div>
+        <h3>Abordagem Comunicativa</h3>
+        <p><strong>(Inglês Real):</strong> Foco na interação espontânea. Simulação de entrevistas e vocabulário profissional.</p>
+        <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Quero%20saber%20mais%20sobre%20a%20Abordagem%20Comunicativa." target="_blank" rel="noopener" class="method-card__cta">Saber mais →</a>
+      </div>
+      <div class="neo-card method-card">
+        <div class="method-card__header">
+          <div class="neo-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg></div>
+          <span class="method-card__number">#04</span>
+        </div>
+        <h3>Método Audiovisual</h3>
+        <p><strong>(Tecnologia a seu Favor):</strong> Séries, podcasts e TED Talks para treinar expressões e diferentes sotaques.</p>
+        <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Quero%20saber%20mais%20sobre%20o%20Método%20Audiovisual." target="_blank" rel="noopener" class="method-card__cta">Saber mais →</a>
+      </div>
+      <div class="neo-card method-card">
+        <div class="method-card__header">
+          <div class="neo-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></div>
+          <span class="method-card__number">#05</span>
+        </div>
+        <h3>Task-based Learning</h3>
+        <p><strong>(Aprender Fazendo):</strong> Tarefas práticas do mundo real com feedback personalizado do professor.</p>
+        <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Quero%20saber%20mais%20sobre%20Task-based%20Learning." target="_blank" rel="noopener" class="method-card__cta">Saber mais →</a>
+      </div>
+      <div class="neo-card method-card">
+        <div class="method-card__header">
+          <div class="neo-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg></div>
+          <span class="method-card__number">#06</span>
+        </div>
+        <h3>Método de Imersão</h3>
+        <p><strong>(Viva o Idioma):</strong> Vivência cultural profunda com debates e apresentações totalmente em inglês.</p>
+        <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Quero%20saber%20mais%20sobre%20o%20Método%20de%20Imersão." target="_blank" rel="noopener" class="method-card__cta">Saber mais →</a>
+      </div>
+    </div>
+    <div class="reveal" style="text-align:center;margin-top:var(--space-12)">
+      <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Quero%20saber%20mais%20sobre%20as%20metodologias." target="_blank" rel="noopener" class="neo-btn neo-btn--primary neo-btn--lg">Quero essas metodologias</a>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       SOCIAL HUB — "Ecossistema Digital Vivo"
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="neo-divider container" aria-hidden="true">
+    <div class="neo-divider__line"></div>
+    <div class="neo-divider__tag">Social Feed_</div>
+    <div class="neo-divider__line"></div>
+  </div>
+
+  <section id="social" class="section social-hub" aria-labelledby="social-title">
+    <div class="container">
+      <div class="reveal">
+        <span class="section__badge">[ @teach.lupi ]</span>
+        <h2 id="social-title">Acompanhe o Ecossistema</h2>
+        <p style="font-size:var(--text-lg);max-width:600px;margin-top:var(--space-3)">Conteúdo diário, dicas de inglês e aulas ao vivo. Faça parte da comunidade Teacher Lupi.</p>
       </div>
 
-      <div class="methodology-grid">
-        <!-- Card 01 -->
-        <div class="method-card">
-          <div class="method-header">
-            <div class="method-icon"><i data-lucide="book"></i></div>
-            <span class="method-number">#01</span>
+      <div class="social-bento reveal-stagger" style="margin-top:var(--space-10)">
+        <!-- Phone Mockup (Main) -->
+        <div class="social-bento__main">
+          <div class="social-phone">
+            <div class="social-phone__screen">
+              <div class="social-phone__header">
+                <div class="social-phone__avatar"><img src="mascot.jpg" alt="" width="36" height="36" loading="lazy"></div>
+                <div>
+                  <div class="social-phone__handle">@teach.lupi <span class="social-phone__verified">✓</span></div>
+                  <div style="font-size:var(--text-xs);opacity:0.6">Teacher Lupi • Educator</div>
+                </div>
+              </div>
+              <img src="social-thumb-speaking.png" alt="Speaking Practice — Conteúdo ao vivo" style="width:100%;display:block" loading="lazy">
+              <div class="social-phone__stats">
+                <div><span class="social-phone__stat-num" data-count="87">0</span> Posts</div>
+                <div><span class="social-phone__stat-num" data-count="1200">0</span> Followers</div>
+                <div><span class="social-phone__stat-num" data-count="45">0</span> Reels</div>
+              </div>
+            </div>
           </div>
-          <h3>Método Tradicional</h3>
-          <p><strong>(Gramática-Tradução):</strong> Foco em domínio estrutural. Ex.: Aulas com exercícios de conversão de tempos verbais (Português → Inglês). Ideal para TOEFL e concursos.</p>
-          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20Método%20Tradicional."
-            target="_blank" class="method-cta">Saber mais →</a>
         </div>
 
-        <!-- Card 02 -->
-        <div class="method-card">
-          <div class="method-header">
-            <div class="method-icon"><i data-lucide="globe"></i></div>
-            <span class="method-number">#02</span>
+        <!-- Card: Reel 1 -->
+        <div class="social-card reveal">
+          <img src="social-thumb-tips.png" alt="Teacher Tips: Phrasal Verbs" class="social-card__img" loading="lazy">
+          <div class="social-card__body">
+            <div class="social-card__badges">
+              <span class="social-badge social-badge--new">Novo Reel</span>
+              <span class="social-badge social-badge--views">+12k views</span>
+            </div>
+            <h3 style="font-size:var(--text-lg);margin-bottom:var(--space-2)">Teacher Tips: Phrasal Verbs</h3>
+            <p style="font-size:var(--text-sm);opacity:0.7">5 phrasal verbs que todo aluno precisa dominar para soar natural.</p>
           </div>
-          <h3>Método Direto</h3>
-          <p><strong>(Imergir para Fluir):</strong> 100% em inglês desde o dia 1. Ex.: Role-play de situações reais, como pedir comida em um restaurante, sem uso de traduções.</p>
-          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20Método%20Direto."
-            target="_blank" class="method-cta">Saber mais →</a>
         </div>
 
-        <!-- Card 03 -->
-        <div class="method-card">
-          <div class="method-header">
-            <div class="method-icon"><i data-lucide="messages-square"></i></div>
-            <span class="method-number">#03</span>
+        <!-- Card: Reel 2 -->
+        <div class="social-card reveal">
+          <img src="social-thumb-errors.png" alt="5 Erros Comuns em Inglês" class="social-card__img" loading="lazy">
+          <div class="social-card__body">
+            <div class="social-card__badges">
+              <span class="social-badge social-badge--trending">Trending</span>
+              <span class="social-badge social-badge--views">+8k views</span>
+            </div>
+            <h3 style="font-size:var(--text-lg);margin-bottom:var(--space-2)">5 Erros Comuns em Inglês</h3>
+            <p style="font-size:var(--text-sm);opacity:0.7">Erros que brasileiros cometem e como corrigir cada um deles.</p>
           </div>
-          <h3>Abordagem Comunicativa</h3>
-          <p><strong>(Inglês Real):</strong> Foco na interação espontânea. Ex.: Simulação de entrevista de emprego para praticar respostas coerentes e vocabulário profissional.</p>
-          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20a%20Abordagem%20Comunicativa."
-            target="_blank" class="method-cta">Saber mais →</a>
         </div>
 
-        <!-- Card 04 -->
-        <div class="method-card">
-          <div class="method-header">
-            <div class="method-icon"><i data-lucide="tv"></i></div>
-            <span class="method-number">#04</span>
+        <!-- Card: TikTok -->
+        <div class="social-card reveal" style="grid-column:2/4">
+          <div style="padding:var(--space-6);display:flex;align-items:center;gap:var(--space-6);flex-wrap:wrap">
+            <div style="flex:1;min-width:200px">
+              <div class="social-card__badges" style="margin-bottom:var(--space-4)">
+                <span class="social-badge social-badge--trending">TikTok</span>
+                <span class="social-badge">@teacher.lupi</span>
+              </div>
+              <h3 style="font-size:var(--text-2xl);margin-bottom:var(--space-3)">Também no TikTok</h3>
+              <p style="font-size:var(--text-sm);opacity:0.7;margin-bottom:var(--space-4)">Dicas rápidas, pronúncia e conteúdo viral de inglês em 60 segundos.</p>
+              <a href="https://www.tiktok.com/@teacher.lupi" target="_blank" rel="noopener" class="neo-btn neo-btn--plan neo-btn--sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+                Ver TikTok
+              </a>
+            </div>
+            <img src="social-thumb-tips.png" alt="" style="width:120px;height:160px;object-fit:cover;border:var(--neo-border-heavy)" loading="lazy">
           </div>
-          <h3>Método Audiovisual</h3>
-          <p><strong>(Tecnologia a seu Favor):</strong> Uso de cenas de séries, podcasts e vídeos (TED Talks) para identificar expressões informais e treinar diferentes sotaques.</p>
-          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20Método%20Audiovisual."
-            target="_blank" class="method-cta">Saber mais →</a>
-        </div>
-
-        <!-- Card 05 -->
-        <div class="method-card">
-          <div class="method-header">
-            <div class="method-icon"><i data-lucide="file-edit"></i></div>
-            <span class="method-number">#05</span>
-          </div>
-          <h3>Task-based Learning</h3>
-          <p><strong>(Aprender Fazendo):</strong> Tarefas práticas do mundo real. Ex.: Redigir um e-mail formal de reclamação seguido de feedback personalizado do professor.</p>
-          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20Task-based%20Learning."
-            target="_blank" class="method-cta">Saber mais →</a>
-        </div>
-
-        <!-- Card 06 -->
-        <div class="method-card">
-          <div class="method-header">
-            <div class="method-icon"><i data-lucide="sparkles"></i></div>
-            <span class="method-number">#06</span>
-          </div>
-          <h3>Método de Imersão</h3>
-          <p><strong>(Viva o Idioma):</strong> Vivência cultural profunda. Ex.: "Dia Cultural" temático com debates e apresentações totalmente em inglês sem uso do português.</p>
-          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20Método%20de%20Imersão."
-            target="_blank" class="method-cta">Saber mais →</a>
-        </div>
-
-        <!-- Card 07 -->
-        <div class="method-card">
-          <div class="method-header">
-            <div class="method-icon"><i data-lucide="languages"></i></div>
-            <span class="method-number">#07</span>
-          </div>
-          <h3>Método Lexical</h3>
-          <p><strong>(Blocos de Pronúncia):</strong> Foco em "chunks" (blocos de linguagem) úteis para viagens, como "Check-in, please" ou "Could I have the bill?".</p>
-          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20Método%20Lexical."
-            target="_blank" class="method-cta">Saber mais →</a>
-        </div>
-
-        <!-- Card 08 -->
-        <div class="method-card">
-          <div class="method-header">
-            <div class="method-icon"><i data-lucide="mic"></i></div>
-            <span class="method-number">#08</span>
-          </div>
-          <h3>Ensino por Projetos</h3>
-          <p><strong>(Criatividade em Ação):</strong> Criação de projetos reais, como podcasts ou vídeos, unindo pesquisa, roteiro e prática de vocabulário técnico.</p>
-          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20Ensino%20por%20Projetos."
-            target="_blank" class="method-cta">Saber mais →</a>
-        </div>
-
-        <!-- Card 09 -->
-        <div class="method-card">
-          <div class="method-header">
-            <div class="method-icon"><i data-lucide="cpu"></i></div>
-            <span class="method-number">#09</span>
-          </div>
-          <h3>Método CBI</h3>
-          <p><strong>(Conteúdo Integrado):</strong> Aprender inglês estudando temas de seu interesse, como Inovação e IA, usando artigos da BBC e TED Talks.</p>
-          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20Método%20CBI."
-            target="_blank" class="method-cta">Saber mais →</a>
         </div>
       </div>
-      <div style="text-align: center; margin-top: 50px;">
-        <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20as%20aulas%20de%20inglês.%20Gostaria%20de%20entender%20melhor%20suas%20metodologias."
-          target="_blank" class="btn btn-primary" style="font-size: 1.2rem; padding: 15px 35px;">
-          QUERO ESSAS METODOLOGIAS
+
+      <!-- Stats Bar -->
+      <div class="social-stats-bar reveal">
+        <div class="social-stats-bar__item">
+          <span class="social-stats-bar__num" data-count="150">0</span>
+          <span class="social-stats-bar__label">Alunos ativos</span>
+        </div>
+        <div class="social-stats-bar__item">
+          <span class="social-stats-bar__num" data-count="500">0</span>
+          <span class="social-stats-bar__label">Aulas dadas</span>
+        </div>
+        <div class="social-stats-bar__item">
+          <span class="social-stats-bar__num" data-count="6">0</span>
+          <span class="social-stats-bar__label">Meses até fluência</span>
+        </div>
+        <div class="social-stats-bar__item">
+          <span class="social-stats-bar__num" data-count="4.9">0</span>
+          <span class="social-stats-bar__label">Avaliação média</span>
+        </div>
+      </div>
+
+      <!-- Social CTAs -->
+      <div class="social-cta-row reveal">
+        <a href="https://www.instagram.com/teach.lupi/" target="_blank" rel="noopener" class="neo-btn neo-btn--plan neo-btn--lg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          Ver Instagram
+        </a>
+        <a href="https://www.tiktok.com/@teacher.lupi" target="_blank" rel="noopener" class="neo-btn neo-btn--plan neo-btn--lg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+          Ver TikTok
+        </a>
+        <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vi%20as%20redes%20sociais%20e%20quero%20agendar%20uma%20aula!" target="_blank" rel="noopener" class="neo-btn neo-btn--primary neo-btn--lg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          Agendar Aula Experimental
         </a>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <div class="brutalist-divider">
-      <div class="divider-line"></div>
-      <div class="divider-tag">Choose your mission</div>
-      <div class="divider-line"></div>
+  <!-- ══════════════════════════════════════════════════════════════════════
+       RESULTADOS DOS ALUNOS — Gamified Progress
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="neo-divider container" aria-hidden="true">
+    <div class="neo-divider__line"></div>
+    <div class="neo-divider__tag">Player Stats_</div>
+    <div class="neo-divider__line"></div>
+  </div>
+
+  <section id="resultados" class="section container" aria-labelledby="results-title">
+    <div class="reveal">
+      <span class="section__badge">[ Resultados ]</span>
+      <h2 id="results-title">Evolução dos Alunos</h2>
+      <p style="font-size:var(--text-lg);max-width:600px;margin-top:var(--space-3)">Acompanhe as conquistas reais dos alunos Teacher Lupi. Cada skill é mensurada e celebrada.</p>
     </div>
 
-    <!-- NOVA SEÇÃO PLANOS -->
-    <section id="planos" class="plans-section" style="animation: fade-in-up 0.8s ease-out forwards;">
-      <div class="plans-header">
-        <span class="section-badge-retro">[ Planos ]</span>
-        <h2 class="pixel-font" style="font-size: clamp(3rem, 6vw, 4.5rem); color: var(--dark); margin-bottom: 10px;">
-          Escolha seu plano</h2>
-        <p style="font-size: 1.2rem; opacity: 0.9;">
-          Mensalidades simples. Sem taxa de matrícula.
+    <div class="results-grid reveal-stagger" style="margin-top:var(--space-10)">
+      <!-- Speaking -->
+      <div class="skill-card">
+        <div class="skill-card__header">
+          <div class="skill-card__icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg></div>
+          <span class="skill-card__level">LVL 8</span>
+        </div>
+        <div class="skill-card__title">Speaking</div>
+        <div class="skill-bar"><div class="skill-bar__fill" data-progress="85"></div></div>
+        <div class="skill-card__xp">
+          <span class="xp-badge">+2400 XP</span>
+          <span class="streak-badge">45 dias streak</span>
+          <span class="achievement-badge">Fluência B2</span>
+        </div>
+        <div class="skill-card__quote">"Em 3 meses já fiz minha primeira apresentação em inglês no trabalho." — Marina S.</div>
+      </div>
+
+      <!-- Listening -->
+      <div class="skill-card">
+        <div class="skill-card__header">
+          <div class="skill-card__icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg></div>
+          <span class="skill-card__level">LVL 7</span>
+        </div>
+        <div class="skill-card__title">Listening</div>
+        <div class="skill-bar"><div class="skill-bar__fill" data-progress="78"></div></div>
+        <div class="skill-card__xp">
+          <span class="xp-badge">+1850 XP</span>
+          <span class="streak-badge">30 dias streak</span>
+        </div>
+        <div class="skill-card__quote">"Hoje assisto séries sem legenda e entendo 90% dos diálogos." — Carlos R.</div>
+      </div>
+
+      <!-- Evolução -->
+      <div class="skill-card">
+        <div class="skill-card__header">
+          <div class="skill-card__icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
+          <span class="skill-card__level">MAX</span>
+        </div>
+        <div class="skill-card__title">Evolução</div>
+        <div class="skill-bar"><div class="skill-bar__fill" data-progress="92"></div></div>
+        <div class="skill-card__xp">
+          <span class="xp-badge">+3200 XP</span>
+          <span class="achievement-badge">Level Up!</span>
+        </div>
+        <div class="skill-card__quote">"O Placement Test mostrou exatamente onde eu precisava melhorar." — Carlos R.</div>
+      </div>
+
+      <!-- Confiança -->
+      <div class="skill-card">
+        <div class="skill-card__header">
+          <div class="skill-card__icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+          <span class="skill-card__level">LVL 9</span>
+        </div>
+        <div class="skill-card__title">Confiança</div>
+        <div class="skill-bar"><div class="skill-bar__fill" data-progress="88"></div></div>
+        <div class="skill-card__xp">
+          <span class="xp-badge">+2700 XP</span>
+          <span class="streak-badge">60 dias streak</span>
+          <span class="achievement-badge">Fluência Desbloqueada</span>
+        </div>
+        <div class="skill-card__quote">"Nunca achei que aprender inglês poderia ser tão envolvente." — Juliana M.</div>
+      </div>
+    </div>
+
+    <div class="reveal" style="text-align:center;margin-top:var(--space-10)">
+      <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Quero%20alcançar%20esses%20resultados!" target="_blank" rel="noopener" class="neo-btn neo-btn--primary neo-btn--lg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        Quero esses resultados
+      </a>
+    </div>
+  </section>
+
+  <!-- Divider before Plans -->
+  <div class="neo-divider container" aria-hidden="true">
+    <div class="neo-divider__line"></div>
+    <div class="neo-divider__tag">Choose Your Mission</div>
+    <div class="neo-divider__line"></div>
+  </div>
+
+  <!-- ── PLANS ── -->
+  <section id="planos" class="section container" aria-labelledby="plans-title">
+    <div class="plans__header reveal">
+      <span class="section__badge">[ Planos ]</span>
+      <h2 id="plans-title">Escolha seu plano</h2>
+      <p>Mensalidades simples. Sem taxa de matrícula.</p>
+    </div>
+    <div class="plans__grid">
+      <!-- Starter -->
+      <div class="neo-card plan-card reveal">
+        <h3>Starter</h3>
+        <div class="plan-card__price">
+          <span class="plan-card__currency">R$</span>
+          <span class="plan-card__amount">300</span>
+          <span class="plan-card__period">/mês</span>
+        </div>
+        <p>4 aulas por mês</p>
+        <ul class="plan-card__features">
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> 1 aula por semana</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Placement Test gratuito</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Material digital</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Relatório mensal</li>
+        </ul>
+        <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Quero%20o%20plano%20Starter%20(R$300/mês)." target="_blank" rel="noopener" class="neo-btn neo-btn--plan neo-btn--full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          Quero esse plano
+        </a>
+      </div>
+      <!-- Plus (Featured) -->
+      <div class="neo-card neo-card--highlight plan-card plan-card--featured reveal">
+        <div class="neo-badge neo-badge--primary neo-badge--floating">☆ Mais Escolhido</div>
+        <h3>Plus</h3>
+        <div class="plan-card__price">
+          <span class="plan-card__currency">R$</span>
+          <span class="plan-card__amount">400</span>
+          <span class="plan-card__period">/mês</span>
+        </div>
+        <p>5 aulas por mês</p>
+        <ul class="plan-card__features">
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> +1 aula extra por mês</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Placement Test gratuito</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Material digital + apps</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Relatório mensal</li>
+        </ul>
+        <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Quero%20o%20plano%20Plus%20(R$400/mês)." target="_blank" rel="noopener" class="neo-btn neo-btn--primary neo-btn--full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          Quero esse plano
+        </a>
+      </div>
+      <!-- Pro -->
+      <div class="neo-card plan-card reveal">
+        <h3>Pro</h3>
+        <div class="plan-card__price">
+          <span class="plan-card__currency">R$</span>
+          <span class="plan-card__amount">500</span>
+          <span class="plan-card__period">/mês</span>
+        </div>
+        <p>8 aulas por mês</p>
+        <ul class="plan-card__features">
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> 2 aulas por semana</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Evolução acelerada</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Material completo + projetos</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Relatório mensal + review</li>
+        </ul>
+        <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Quero%20o%20plano%20Pro%20(R$500/mês)." target="_blank" rel="noopener" class="neo-btn neo-btn--plan neo-btn--full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          Quero esse plano
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       AGENDAMENTO PREMIUM
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="neo-divider container" aria-hidden="true">
+    <div class="neo-divider__line"></div>
+    <div class="neo-divider__tag">Book Your Slot_</div>
+    <div class="neo-divider__line"></div>
+  </div>
+
+  <section id="agendar" class="section container" aria-labelledby="booking-title">
+    <div class="booking">
+      <!-- Info Side -->
+      <div class="booking__info reveal">
+        <span class="section__badge">[ Aula Experimental ]</span>
+        <h2 id="booking-title" style="font-size:clamp(2rem,5vw,3.5rem);line-height:1">Agende sua primeira aula gratuita</h2>
+        <p style="font-size:var(--text-lg);opacity:0.8">Escolha o melhor horário e conheça a metodologia Teacher Lupi sem compromisso.</p>
+
+        <div class="booking__features">
+          <div class="booking__feature">
+            <div class="booking__feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+            <span>Duração: 50 minutos</span>
+          </div>
+          <div class="booking__feature">
+            <div class="booking__feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg></div>
+            <span>Online ao vivo (Meet/Zoom)</span>
+          </div>
+          <div class="booking__feature">
+            <div class="booking__feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
+            <span>Inclui Placement Test</span>
+          </div>
+          <div class="booking__feature">
+            <div class="booking__feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+            <span>Sem compromisso — 100% gratuita</span>
+          </div>
+        </div>
+
+        <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Quero%20agendar%20minha%20aula%20experimental%20gratuita!" target="_blank" rel="noopener" class="neo-btn neo-btn--primary neo-btn--lg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          Agendar via WhatsApp
+        </a>
+      </div>
+
+      <!-- Calendar Widget -->
+      <div class="booking-widget reveal--scale" id="bookingWidget">
+        <div class="booking-widget__header">
+          <span id="bookingMonth">Maio 2026</span>
+          <span style="font-size:var(--text-xs);opacity:0.8">Aula Experimental</span>
+        </div>
+        <div class="booking-widget__days">
+          <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+        </div>
+        <div class="booking-widget__grid" id="bookingGrid">
+          <!-- Populated by JS -->
+        </div>
+        <div class="booking-widget__slots" id="bookingSlots">
+          <div style="font-family:var(--font-display);font-size:var(--text-sm);margin-bottom:var(--space-2);text-transform:uppercase">Horários Disponíveis</div>
+          <div class="booking-slot" data-time="09:00" onclick="bookSlot('09:00 - Manhã')">
+            <span>09:00 — Manhã</span>
+            <span class="booking-slot__status booking-slot__status--open">Disponível</span>
+          </div>
+          <div class="booking-slot" data-time="14:00" onclick="bookSlot('14:00 - Tarde')">
+            <span>14:00 — Tarde</span>
+            <span class="booking-slot__status booking-slot__status--open">Disponível</span>
+          </div>
+          <div class="booking-slot" data-time="19:00" onclick="bookSlot('19:00 - Noite')">
+            <span>19:00 — Noite</span>
+            <span class="booking-slot__status booking-slot__status--open">Disponível</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIALS ── -->
+  <section class="section container" aria-labelledby="testimonials-title">
+    <div class="reveal">
+      <span class="section__badge">[ Depoimentos ]</span>
+      <h2 id="testimonials-title">O que dizem os alunos</h2>
+    </div>
+    <div class="testimonials__grid reveal-stagger">
+      <div class="neo-card testimonial-card">
+        <blockquote class="testimonial-card__quote">"As aulas são incríveis! A Teacher Lupi adapta tudo ao meu ritmo. Em 3 meses já consegui fazer minha primeira apresentação em inglês no trabalho."</blockquote>
+        <div class="testimonial-card__author">Marina S.</div>
+        <div class="testimonial-card__role">Analista de Marketing • Plano Plus</div>
+      </div>
+      <div class="neo-card testimonial-card">
+        <blockquote class="testimonial-card__quote">"O Placement Test foi muito preciso. Descobri que meu nível era diferente do que eu imaginava, e as aulas focaram exatamente onde eu precisava melhorar."</blockquote>
+        <div class="testimonial-card__author">Carlos R.</div>
+        <div class="testimonial-card__role">Desenvolvedor • Plano Pro</div>
+      </div>
+      <div class="neo-card testimonial-card">
+        <blockquote class="testimonial-card__quote">"As metodologias variadas mantêm tudo dinâmico. Nunca achei que aprender inglês poderia ser tão envolvente. Recomendo demais!"</blockquote>
+        <div class="testimonial-card__author">Juliana M.</div>
+        <div class="testimonial-card__role">Estudante Universitária • Plano Starter</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <section id="faq" class="section container" aria-labelledby="faq-title">
+    <div class="faq__header reveal">
+      <span class="section__badge">[ FAQ ]</span>
+      <h2 id="faq-title">Perguntas Frequentes</h2>
+      <p>Tire suas dúvidas antes de começar.</p>
+    </div>
+    <div class="neo-accordion reveal" role="list" style="max-width:800px;margin:0 auto">
+      <div class="neo-accordion__item" role="listitem">
+        <button class="neo-accordion__trigger" aria-expanded="false" type="button">
+          <span>Como funciona o Placement Test?</span>
+          <span class="neo-accordion__icon">+</span>
+        </button>
+        <div class="neo-accordion__content">
+          <p>O Placement Test é um teste de nivelamento gratuito feito na primeira aula. Ele avalia gramática, vocabulário, compreensão e conversação para identificar seu nível real (A1 a C2) e personalizar seu plano de estudos.</p>
+        </div>
+      </div>
+      <div class="neo-accordion__item" role="listitem">
+        <button class="neo-accordion__trigger" aria-expanded="false" type="button">
+          <span>As aulas são online ou presenciais?</span>
+          <span class="neo-accordion__icon">+</span>
+        </button>
+        <div class="neo-accordion__content">
+          <p>As aulas são realizadas online via Google Meet ou Zoom, com flexibilidade total de horários. Isso permite que você estude de qualquer lugar, no horário que funcionar melhor para sua rotina.</p>
+        </div>
+      </div>
+      <div class="neo-accordion__item" role="listitem">
+        <button class="neo-accordion__trigger" aria-expanded="false" type="button">
+          <span>Posso trocar de plano depois?</span>
+          <span class="neo-accordion__icon">+</span>
+        </button>
+        <div class="neo-accordion__content">
+          <p>Sim! Você pode fazer upgrade ou downgrade do plano a qualquer momento. A mudança é aplicada no mês seguinte, sem taxas adicionais.</p>
+        </div>
+      </div>
+      <div class="neo-accordion__item" role="listitem">
+        <button class="neo-accordion__trigger" aria-expanded="false" type="button">
+          <span>Existe contrato de fidelidade?</span>
+          <span class="neo-accordion__icon">+</span>
+        </button>
+        <div class="neo-accordion__content">
+          <p>Não. Nossos planos são mensais e sem fidelidade. Você pode cancelar a qualquer momento sem multas ou taxas.</p>
+        </div>
+      </div>
+      <div class="neo-accordion__item" role="listitem">
+        <button class="neo-accordion__trigger" aria-expanded="false" type="button">
+          <span>Como são os relatórios mensais?</span>
+          <span class="neo-accordion__icon">+</span>
+        </button>
+        <div class="neo-accordion__content">
+          <p>Todo mês você recebe um relatório detalhado com sua evolução em gramática, vocabulário, fluência e compreensão. Isso permite acompanhar seu progresso de forma objetiva.</p>
+        </div>
+      </div>
+      <div class="neo-accordion__item" role="listitem">
+        <button class="neo-accordion__trigger" aria-expanded="false" type="button">
+          <span>Atende iniciantes absolutos?</span>
+          <span class="neo-accordion__icon">+</span>
+        </button>
+        <div class="neo-accordion__content">
+          <p>Sim! As aulas são adaptadas para todos os níveis, desde iniciantes absolutos (A1) até avançados (C2). A metodologia é personalizada para cada perfil.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FINAL CTA ── -->
+  <section class="section container" aria-label="Chamada final">
+    <div class="cta-final reveal--scale">
+      <h2>Pronto para o próximo nível?</h2>
+      <p>Comece hoje com o Placement Test gratuito e descubra o caminho mais rápido para a fluência.</p>
+      <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Quero%20fazer%20o%20Placement%20Test%20gratuito!" target="_blank" rel="noopener" class="neo-btn neo-btn--accent neo-btn--lg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        Começar agora — É gratuito
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══ STICKY CTA ═══ -->
+<div class="sticky-cta" aria-label="Ação rápida">
+  <div class="container sticky-cta__inner">
+    <span class="sticky-cta__text">Pronto para começar?</span>
+    <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site." target="_blank" rel="noopener" class="neo-btn neo-btn--primary neo-btn--sm" style="margin-left:auto">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      WhatsApp
+    </a>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand">
+          <div class="footer__brand-icon"><img src="mascot.jpg" alt="" width="40" height="40" loading="lazy"></div>
+          Teacher Lupi
+        </div>
+        <p style="opacity:0.7">English classes • Feitas pra você evoluir de verdade.</p>
+      </div>
+      <div>
+        <h4 class="footer__heading">Contato</h4>
+        <p style="margin-bottom:var(--space-3)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:8px"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+          <a href="mailto:teach.lupi@gmail.com" class="footer__link">teach.lupi@gmail.com</a>
+        </p>
+        <p>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:8px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          <a href="https://wa.me/5592981632991" class="footer__link" target="_blank" rel="noopener">(92) 98163-2991</a>
         </p>
       </div>
-
-      <div class="plans-grid">
-        <!-- Starter -->
-        <div class="plan-card">
-          <h3>Starter</h3>
-          <div class="plan-price">
-            <span class="currency">R$</span>
-            <span class="amount">300</span>
-            <span class="period">/mês</span>
-          </div>
-          <p>4 aulas por mês</p>
-          <ul class="plan-features">
-            <li><i data-lucide="check"></i> 1 aula por semana</li>
-            <li><i data-lucide="check"></i> Placement Test gratuito</li>
-            <li><i data-lucide="check"></i> Material digital</li>
-            <li><i data-lucide="check"></i> Relatório mensal</li>
-          </ul>
-          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20o%20plano%20Starter%20(R$%20300/mês)."
-            target="_blank" class="btn btn-plan">
-            <i data-lucide="message-square"></i> QUERO ESSE PLANO
-          </a>
-        </div>
-
-        <!-- Plus -->
-        <div class="plan-card highlight">
-          <div class="highlight-badge">☆ MAIS ESCOLHIDO</div>
-          <h3>Plus</h3>
-          <div class="plan-price">
-            <span class="currency">R$</span>
-            <span class="amount">400</span>
-            <span class="period">/mês</span>
-          </div>
-          <p>5 aulas por mês</p>
-          <ul class="plan-features">
-            <li><i data-lucide="check"></i> +1 aula extra por mês</li>
-            <li><i data-lucide="check"></i> Placement Test gratuito</li>
-            <li><i data-lucide="check"></i> Material digital + apps</li>
-            <li><i data-lucide="check"></i> Relatório mensal</li>
-          </ul>
-          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20o%20plano%20Plus%20(R$%20400/mês)."
-            target="_blank" class="btn btn-plan">
-            <i data-lucide="message-square"></i> QUERO ESSE PLANO
-          </a>
-        </div>
-
-        <!-- Pro -->
-        <div class="plan-card">
-          <h3>Pro</h3>
-          <div class="plan-price">
-            <span class="currency">R$</span>
-            <span class="amount">500</span>
-            <span class="period">/mês</span>
-          </div>
-          <p>8 aulas por mês</p>
-          <ul class="plan-features">
-            <li><i data-lucide="check"></i> 2 aulas por semana</li>
-            <li><i data-lucide="check"></i> Evolução acelerada</li>
-            <li><i data-lucide="check"></i> Material completo + projetos</li>
-            <li><i data-lucide="check"></i> Relatório mensal + review</li>
-          </ul>
-          <a href="https://wa.me/5592981632991?text=Olá,%20Teacher%20Lupi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20o%20plano%20Pro%20(R$%20500/mês)."
-            target="_blank" class="btn btn-plan">
-            <i data-lucide="message-square"></i> QUERO ESSE PLANO
-          </a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <div class="brutalist-divider" style="margin-bottom: 0;">
-    <div class="divider-line"></div>
-    <div class="divider-tag">Terminal Footer</div>
-    <div class="divider-line"></div>
-  </div>
-
-  <footer>
-    <div class="footer-container">
-      <div class="footer-grid"
-        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; width: 100%; text-align: left;">
-        <div class="footer-brand" style="animation: fade-in-up 0.8s ease-out forwards; opacity: 0;">
-          <div class="brand" style="color: white; font-size: 1.5rem; margin-bottom: 15px;">
-            <div class="brand-icon" style="background: transparent; border-color: white;">
-              <img src="mascot.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            Teacher Lupi
-          </div>
-          <p style="opacity: 0.8;">English classes • Feitas pra você evoluir de verdade</p>
-        </div>
-
-        <div class="footer-contact"
-          style="animation: fade-in-up 0.8s ease-out forwards; opacity: 0; animation-delay: 0.2s;">
-          <h4 class="pixel-font" style="color: var(--primary); margin-bottom: 15px; text-transform: uppercase;">Contato
-          </h4>
-          <p style="margin-bottom: 10px;">
-            <i data-lucide="mail" style="width: 16px; vertical-align: middle; margin-right: 8px;"></i>
-            <a href="mailto:teach.lupi@gmail.com" class="footer-link">teach.lupi@gmail.com</a>
-          </p>
-          <p style="margin-bottom: 10px;">
-            <i data-lucide="phone" style="width: 16px; vertical-align: middle; margin-right: 8px;"></i>
-            <a href="https://wa.me/5592981632991" class="footer-link">(92) 98163-2991</a>
-          </p>
-        </div>
-
-        <div class="footer-legal"
-          style="animation: fade-in-up 0.8s ease-out forwards; opacity: 0; animation-delay: 0.4s;">
-          <h4 class="pixel-font" style="color: var(--primary); margin-bottom: 15px; text-transform: uppercase;">
-            Informações</h4>
-          <p style="margin-bottom: 10px;">
-            CNPJ: <a href="https://cnpj.biz/61870946000101" target="_blank" class="footer-link">61.870.946/0001-01</a>
-          </p>
-          <p style="opacity: 0.6; font-size: 0.8rem;">© 2026 • Todos os direitos reservados.</p>
-        </div>
+      <div>
+        <h4 class="footer__heading">Redes Sociais</h4>
+        <p style="margin-bottom:var(--space-3)"><a href="https://www.instagram.com/teach.lupi/" target="_blank" rel="noopener" class="footer__link">Instagram — @teach.lupi</a></p>
+        <p style="margin-bottom:var(--space-3)"><a href="https://www.tiktok.com/@teacher.lupi" target="_blank" rel="noopener" class="footer__link">TikTok — @teacher.lupi</a></p>
+        <p style="margin-bottom:var(--space-3)">CNPJ: <a href="https://cnpj.biz/61870946000101" target="_blank" rel="noopener" class="footer__link">61.870.946/0001-01</a></p>
+        <p class="footer__copy">© 2026 Teacher Lupi. Todos os direitos reservados.</p>
       </div>
     </div>
-  </footer>
-
-  <div class="modal-overlay" id="redirectModal">
-    <div class="modal-box">
-      <div class="modal-icon">📲</div>
-      <h3 class="modal-title pixel-font">Redirecionando...</h3>
-      <p class="modal-text">
-        Você está saindo do site para falar diretamente com a <strong>Teacher Lupi</strong> no WhatsApp.
-      </p>
-      <div class="progress-bar-container">
-        <div class="progress-bar" id="redirectProgress"></div>
-      </div>
-      <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 15px;">Aguarde um momento enquanto preparamos sua mensagem.
-      </p>
+    <div class="footer__bottom">
+      <p>Feito com ❤️ para quem quer evoluir de verdade.</p>
     </div>
   </div>
+</footer>
 
-  <div class="modal-overlay" id="devModal">
-    <div class="modal-box">
-      <button class="modal-close-btn" id="closeModal">X</button>
-      <div class="modal-icon">🛠️</div>
-      <h3 class="modal-title pixel-font">Área Restrita</h3>
-      <p class="modal-text">
-        Site em desenvolvimento...<br><br>
-        Em breve, você poderá ver uma nova página por aqui!
-      </p>
-      <button class="btn btn-primary" id="btnOkModal" style="width: 100%;">Entendido!</button>
-    </div>
+<!-- ═══ MODALS ═══ -->
+<div class="neo-modal-overlay" id="redirectModal" role="dialog" aria-modal="true" aria-label="Redirecionamento">
+  <div class="neo-modal">
+    <div class="neo-modal__icon">📲</div>
+    <h3 class="neo-modal__title">Redirecionando...</h3>
+    <p class="neo-modal__text">Conectando você com a <strong>Teacher Lupi</strong> no WhatsApp...</p>
+    <div class="neo-progress"><div class="neo-progress__fill" id="redirectProgress"></div></div>
+    <p style="font-size:var(--text-xs);opacity:0.6;margin-top:var(--space-4)">Aguarde um momento.</p>
   </div>
+</div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const modal = document.getElementById('devModal');
-      const redirectModal = document.getElementById('redirectModal');
-      const progress = document.getElementById('redirectProgress');
-      const closeModalBtns = [document.getElementById('closeModal'), document.getElementById('btnOkModal')];
-      const allLinks = document.querySelectorAll('a, .dev-link');
+<!-- Toast Container -->
+<div class="neo-toast-container" aria-live="polite"></div>
 
-      const openModal = (e) => {
-        const href = e.currentTarget.getAttribute('href');
+</div><!-- /.page -->
 
-        // Interceptar WhatsApp ou Links Externos
-        if (href && (href.startsWith('https://wa.me') || href.startsWith('https://cnpj.biz'))) {
-          e.preventDefault();
-
-          const modalText = redirectModal.querySelector('.modal-text');
-          if (href.includes('cnpj.biz')) {
-            modalText.innerHTML = 'Você está sendo redirecionado para a consulta oficial do <strong>CNPJ</strong>.';
-          } else {
-            modalText.innerHTML = 'Você está saindo do site para falar diretamente com a <strong>Teacher Lupi</strong> no WhatsApp.';
-          }
-
-          redirectModal.classList.add('active');
-          progress.style.width = '0%';
-          setTimeout(() => progress.style.width = '100%', 100);
-
-          setTimeout(() => {
-            window.open(href, '_blank');
-            redirectModal.classList.remove('active');
-            progress.style.width = '0%';
-          }, 2000);
-          return;
-        }
-
-        // Se o link levar a uma seção que existe, permite o scroll. Caso contrário, abre o modal.
-        if (href && href.startsWith('#')) {
-          const target = document.querySelector(href);
-          if (target) return; // Permite o scroll padrão
-        }
-
-        if (e.currentTarget.classList.contains('dev-link')) {
-          e.preventDefault();
-          modal.classList.add('active');
-        }
-      };
-
-      const closeModal = () => {
-        modal.classList.remove('active');
-        redirectModal.classList.remove('active');
-      };
-
-      allLinks.forEach(link => link.addEventListener('click', openModal));
-      closeModalBtns.forEach(btn => btn.addEventListener('click', closeModal));
-      modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-      redirectModal.addEventListener('click', (e) => { if (e.target === redirectModal) closeModal(); });
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
-
-      // Header Scroll Effect
-      const header = document.querySelector('header');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-          header.classList.add('scrolled');
-        } else {
-          header.classList.remove('scrolled');
-        }
-      });
-
-      // Mobile Menu Toggle
-      const mobileBtn = document.querySelector('.mobile-menu-btn');
-      const closeMenu = document.querySelector('.close-menu');
-      const mobileNav = document.querySelector('.mobile-nav-overlay');
-      const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
-
-      mobileBtn.addEventListener('click', () => {
-        mobileNav.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      });
-
-      closeMenu.addEventListener('click', () => {
-        mobileNav.classList.remove('active');
-        document.body.style.overflow = '';
-      });
-
-      mobileLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          mobileNav.classList.remove('active');
-          document.body.style.overflow = '';
-        });
-      });
-
-      // Animation for brand click
-      const brand = document.querySelector('.brand');
-      const brandIcon = document.querySelector('.brand-icon');
-      brand.addEventListener('click', () => {
-        brandIcon.classList.add('animate');
-        setTimeout(() => brandIcon.classList.remove('animate'), 300);
-      });
-
-      // Initialize Lucide Icons
-      lucide.createIcons();
-
-      // Register Service Worker for PWA
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./sw.js')
-            .then(reg => console.log('SW Registered!', reg))
-            .catch(err => console.log('SW Registration Failed', err));
-        });
-      }
-    });
-  </script>
+<script src="js/app.js" defer></script>
+<script src="js/components.js" defer></script>
 </body>
-
 </html>

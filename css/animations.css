@@ -1,0 +1,171 @@
+/* ==========================================================================
+   TEACHER LUPI — ANIMATIONS
+   Keyframes, scroll-reveal, transitions. Respects prefers-reduced-motion.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   KEYFRAMES
+   -------------------------------------------------------------------------- */
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes float-subtle {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+@keyframes slide-down {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0) rotate(45deg); }
+  40% { transform: translateY(-10px) rotate(45deg); }
+  60% { transform: translateY(-5px) rotate(45deg); }
+}
+
+@keyframes toast-in {
+  from { transform: translateX(120%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes toast-out {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(120%); opacity: 0; }
+}
+
+@keyframes loading-fill {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes accordion-open {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-border {
+  0%, 100% { box-shadow: 12px 12px 0 var(--color-primary); }
+  50% { box-shadow: 12px 12px 0 var(--color-accent); }
+}
+
+@keyframes shake {
+  0% { transform: translate(-2px, -2px) rotate(0deg); }
+  25% { transform: translate(-2px, -2px) rotate(-1.5deg); }
+  50% { transform: translate(-2px, -2px) rotate(1.5deg); }
+  75% { transform: translate(-2px, -2px) rotate(-0.5deg); }
+  100% { transform: translate(-2px, -2px) rotate(0deg); }
+}
+
+/* --------------------------------------------------------------------------
+   SCROLL REVEAL SYSTEM
+   -------------------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity var(--duration-reveal) var(--ease-smooth),
+              transform var(--duration-reveal) var(--ease-smooth);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered children */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--duration-reveal) var(--ease-smooth),
+              transform var(--duration-reveal) var(--ease-smooth);
+}
+
+.reveal-stagger.is-visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 80ms; }
+.reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 160ms; }
+.reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 240ms; }
+.reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 320ms; }
+.reveal-stagger.is-visible > *:nth-child(6) { transition-delay: 400ms; }
+.reveal-stagger.is-visible > *:nth-child(7) { transition-delay: 480ms; }
+.reveal-stagger.is-visible > *:nth-child(8) { transition-delay: 560ms; }
+.reveal-stagger.is-visible > *:nth-child(9) { transition-delay: 640ms; }
+
+/* Scale variant */
+.reveal--scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity var(--duration-reveal) var(--ease-smooth),
+              transform var(--duration-reveal) var(--ease-bounce);
+}
+
+.reveal--scale.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Checklist animation */
+.checklist-reveal .neo-checkbox {
+  transition: var(--transition-bounce);
+  transition-delay: inherit;
+}
+
+.checklist-reveal.is-visible .neo-checkbox {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+/* Featured plan pulse */
+.plan-card--featured.is-visible {
+  animation: pulse-border 3s ease-in-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   REDUCED MOTION — Accessibility
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal,
+  .reveal--scale,
+  .reveal-stagger > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .neo-marquee__content { animation: none; }
+  .mascot-frame { animation: none; }
+  .scroll-hint__arrow { animation: none; }
+}

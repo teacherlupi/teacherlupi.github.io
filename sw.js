@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'teacher-lupi-v6';
+const CACHE_VERSION = 'teacher-lupi-v7';
 const STATIC_ASSETS = [
   './',
   './index.html',

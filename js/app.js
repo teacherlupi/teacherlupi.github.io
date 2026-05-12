@@ -14,15 +14,15 @@
       const saved = localStorage.getItem(this.STORAGE_KEY);
       if (saved) {
         document.documentElement.setAttribute('data-theme', saved);
+      } else {
+        const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
       }
-      // If no saved preference, CSS handles prefers-color-scheme automatically
     },
 
     toggle() {
       const current = document.documentElement.getAttribute('data-theme');
-      const isDark = current === 'dark' ||
-        (!current && window.matchMedia('(prefers-color-scheme: dark)').matches);
-      const next = isDark ? 'light' : 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
 
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem(this.STORAGE_KEY, next);

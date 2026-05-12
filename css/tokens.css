@@ -163,28 +163,3 @@
   --border-color:        #f0ebe3;
 }
 
-/* --------------------------------------------------------------------------
-   SYSTEM PREFERENCE — auto dark mode on first visit
-   -------------------------------------------------------------------------- */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --color-surface:       #121212;
-    --color-surface-alt:   #1e1e1e;
-    --color-card:          #242424;
-    --color-ink:           #f0ebe3;
-    --color-ink-muted:     #a0a0a0;
-
-    --color-primary:       #e04545;
-    --color-primary-hover: #ff6b6b;
-    --color-primary-soft:  rgba(224, 69, 69, 0.15);
-    --color-accent:        #ffd633;
-    --color-accent-dark:   #e6c200;
-    --color-muted:         #2e3d3d;
-    --color-muted-dark:    #1e2d2d;
-
-    --color-overlay:       rgba(0, 0, 0, 0.9);
-    --color-backdrop:      rgba(18, 18, 18, 0.9);
-
-    --border-color:        #f0ebe3;
-  }
-}

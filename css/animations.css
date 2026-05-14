@@ -150,22 +150,4 @@
 /* --------------------------------------------------------------------------
    REDUCED MOTION — Accessibility
    -------------------------------------------------------------------------- */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-
-  .reveal,
-  .reveal--scale,
-  .reveal-stagger > * {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-
-  .neo-marquee__content { animation: none; }
-  .mascot-frame { animation: none; }
-  .scroll-hint__arrow { animation: none; }
-}
+/* @media (prefers-reduced-motion: reduce) { ... removido para forçar animações ... } */
